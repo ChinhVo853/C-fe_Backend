@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrangChuController;
+use App\Http\Controllers\MenuController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/', [TrangChuController::class, 'Home']);
-Route::get('/Menu', [TrangChuController::class, 'Menu']);
-Route::post('/Dat-Mon', [TrangChuController::class, 'DatMon']);
+Route::get('/Menu', [MenuController::class, 'Menu']);
+Route::post('/Dat-Mon/{banID}', [MenuController::class, 'DatMon']);
 Route::get('/Lich-Su-Mon/{thongTin}', [TrangChuController::class, 'LichSuMon']);
 Route::post('/Nhap-Ban/{banID}', [TrangChuController::class, 'NhapThongTin']);

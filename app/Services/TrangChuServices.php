@@ -35,94 +35,36 @@ class TrangchuServices
         return $thongTin;
     }
 
-
-    public function XemMenu()
-    {
-        $data =
-            DB::table('mon as m')
-            ->join('loai as l', 'l.id', '=', 'm.loai_id')
-            ->join('chi_tiet_mon as ctm', 'ctm.mon_id', '=', 'm.id')
-            ->join('size as s', 's.id', '=', 'ctm.size_id')
-            ->select(
-                'm.id as mon_id',
-                'm.ten as ten_mon',
-                'l.ten as ten_loai',
-                'm.gia',
-                's.ten as ten_size'
-            )
-            ->get();
-        return $data;
-    }
-
-    public function LuuLichSuBan($requestData, $tongTien)
-    {
-        return DB::table('lich_su_ban')
-            ->insertGetId([
-                'ban_id'    => $requestData->ban_id,
-                'tong_tien' => $tongTien,
-                'thong_tin' => $requestData->thong_tin
-            ]);
-    }
-
-    public function LuuChiTietBan($requestData, $lichSuBanId)
-    {
-        $tongTien = 0;
-
-        foreach ($requestData->ten as $key => $value) {
-            DB::table('chi_tiet_ban')
-                ->insert([
-                    'id_mon'         => $requestData->mon_id[$key],
-                    'id_ban'         => $requestData->ban_id,
-                    'lich_su_ban_id' => $lichSuBanId,
-                    'so_luong'       => $requestData->so_luong[$key],
-                    'thanh_tien'     => $requestData->so_luong[$key] * $requestData->gia[$key],
-                    'ghi_chu'        => $requestData->ghi_chu
-                ]);
-            $tongTien += $requestData->so_luong[$key] * $requestData->gia[$key];
-        }
-
-        return $tongTien;
-    }
-
-    public function CapNhatTongTienLS($tongTien, $lichSuBanId)
-    {
-        $tongTien = DB::table('lich_su_ban')
-            ->where('id', '=', $lichSuBanId)
-            ->update([
-                'tong_tien' => $tongTien
-            ]);
-    }
-
     public function XemLichSuMon($thongTin)
     {
 
-        $lichSuMon = DB::table('lich_su_ban as lsb')
-            ->join('ban as b', 'lsb.ban_id', '=', 'b.id')
-            ->where('lsb.thong_tin', '=', $thongTin)
+        $lichSuMon = DB::table('hoa_don as hd')
+            ->join('ban as b', 'hd.ban_id', '=', 'b.id')
+            ->where('hd.thong_tin', '=', $thongTin)
             ->select(
-                'lsb.thong_tin',
-                'lsb.tong_tien',
+                'hd.thong_tin',
+                'hd.tong_tien',
                 'b.ten'
             )
-            ->orderBy('lsb.created_at', 'desc')
+            ->orderBy('hd.created_at', 'desc')
             ->get();
         return $lichSuMon;
     }
 
     public function XemChiTietLichSuMon($BanID)
     {
-        $dsChiTietLichSu = DB::table('lich_su_ban as lsb')
-            ->join('chi_tiet_ban as ctb', 'lsb.id', '=', 'ctb.lich_su_ban_id')
-            ->join('ban as b', 'lsb.ban_id', '=', 'b.id')
-            ->join('mon as m', 'ctb.id_mon', '=', 'm.id')
-            ->where('lsb.id', '=', $BanID)
+        $dsChiTietLichSu = DB::table('hoa_don as hd')
+            ->join('chi_tiet_hoa_don as cthd', 'hd.id', '=', 'cthd.hoa_don_id')
+            ->join('ban as b', 'hd.ban_id', '=', 'b.id')
+            ->join('mon as m', 'cthd.id_mon', '=', 'm.id')
+            ->where('hd.id', '=', $BanID)
             ->select(
                 'm.ten as ten_mon',
                 'b.ten as ten_ban',
-                'ctb.thanh_tien',
-                'ctb.so_luong',
-                'ctb.ghi_chu',
-                'lsb.thong_tin'
+                'cthd.thanh_tien',
+                'cthd.so_luong',
+                'cthd.ghi_chu',
+                'hd.thong_tin'
             )->get();
         return $dsChiTietLichSu;
     }
@@ -132,5 +74,12 @@ class TrangchuServices
         DB::table('ban')
             ->where('id', '=', $banID)
             ->update(['trang_thai' => 2]);
+    }
+
+    public function GoiThanhToanBan($banID)
+    {
+        DB::table('ban')
+            ->where('id', '=', $banID)
+            ->update(['trang_thai' => 3]);
     }
 }
