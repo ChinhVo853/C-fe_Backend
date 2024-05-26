@@ -23,9 +23,9 @@ class TrangChuController extends Controller
         ]);
     }
 
-    public function Home()
+    public function Home($banID)
     {
-        $thong_tin = $this->trangChuServices->layThongTinBan(1);
+        $thong_tin = $this->trangChuServices->layThongTinBan($banID);
         return response()->json([
             'message' => 'thanh cong',
             'data'    => $thong_tin

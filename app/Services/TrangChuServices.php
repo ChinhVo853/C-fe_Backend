@@ -30,7 +30,7 @@ class TrangchuServices
                 'ttq.chu_nhat',
                 'b.thong_tin'
             )
-            ->get();
+            ->first();
 
         return $thongTin;
     }

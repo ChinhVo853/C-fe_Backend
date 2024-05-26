@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/', [TrangChuController::class, 'Home']);
+Route::get('/Trang-Chu/{banID}', [TrangChuController::class, 'Home']);
 Route::get('/Menu', [MenuController::class, 'Menu']);
 Route::post('/Dat-Mon/{banID}', [MenuController::class, 'DatMon']);
 Route::get('/Lich-Su-Mon/{thongTin}', [TrangChuController::class, 'LichSuMon']);
