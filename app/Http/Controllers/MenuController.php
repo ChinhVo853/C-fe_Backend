@@ -15,37 +15,31 @@ class MenuController extends Controller
     }
     public function Menu()
     {
-        $result =  $this->MenuServices->XemMenu();
-        $groupedResult = collect($result)->reduce(function ($carry, $item) {
-
-            $tenLoai = $item->ten_loai;
-            $tenMon = $item->ten_mon;
-
-            if (!isset($carry[$tenLoai])) {
-                $carry[$tenLoai] = [];
-            }
-            if (!isset($carry[$tenMon])) {
-                $carry[$tenLoai][$tenMon][] = [
-                    'gia' => $item->gia,
-                    'ten_size' => $item->ten_size
-                ];
-            } else {
-                $carry[$tenLoai][$tenMon][] = [
-                    'gia' => $item->gia,
-                    'ten_size' => $item->ten_size
+        $result = $this->MenuServices->XemMenu();
+        $groupedResult = [];
+        foreach ($result as $item) {
+            $key = $item->ten_loai . '_' . $item->ten_mon;
+            if (!isset($groupedResult[$key])) {
+                $groupedResult[$key] = [
+                    'ten_loai' => $item->ten_loai,
+                    'ten_mon' => $item->ten_mon,
+                    'gia' => [],
+                    'sizes' => [],
                 ];
             }
-            return $carry;
-        }, []);
-
-        // Chuyển đổi kết quả thành mảng từ collection
-        //$groupedResult = array_values($groupedResult);
+            $groupedResult[$key]['gia'][] = $item->gia;
+            $groupedResult[$key]['sizes'][] = $item->ten_size;
+            // Loại bỏ các giá trị trùng lặp
+            $groupedResult[$key]['sizes'] = array_unique($groupedResult[$key]['sizes']);
+            $groupedResult[$key]['gia'] = array_unique($groupedResult[$key]['gia']);
+        }
 
         return response()->json([
-            'message' => 'thanh cong',
-            'data' => $groupedResult
+            'message' => 'thanh công',
+            'data' => array_values($groupedResult),
         ]);
     }
+
 
     public function DatMon(Request $request, $banID)
     {
