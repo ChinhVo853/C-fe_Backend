@@ -11,8 +11,7 @@ class MenuServices
         $data =
             DB::table('mon as m')
             ->join('loai as l', 'l.id', '=', 'm.loai_id')
-            ->join('chi_tiet_mon as ctm', 'ctm.mon_id', '=', 'm.id')
-            ->join('size as s', 's.id', '=', 'ctm.size_id')
+            ->join('size as s', 's.id', '=', 'm.size_id')
             ->select(
                 'm.id as mon_id',
                 'm.ten as ten_mon',
