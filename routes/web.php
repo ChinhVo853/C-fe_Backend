@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/anh/{imageName}', function ($imageName) {
+    $path = public_path('anh/' . $imageName);
+    return response()->file($path);
+});
