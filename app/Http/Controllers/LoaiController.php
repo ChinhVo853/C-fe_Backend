@@ -15,7 +15,7 @@ class LoaiController extends Controller
 
     public function Them(Request $request)
     {
-        $this->loaiServices->ThemLoai($request->ten);
+        $this->loaiServices->ThemLoai($request->loai);
         return response([
             'message' => 'thanh cong'
         ]);

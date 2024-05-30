@@ -13,6 +13,8 @@ class NguyenLieuController extends Controller
         $this->nguyenLieuServices = $nguyenLieuServices;
     }
 
+
+
     public function Them(Request $request)
     {
         $this->nguyenLieuServices->ThemNguyenLieu($request->ten, $request->donViID, $request->soLuong);

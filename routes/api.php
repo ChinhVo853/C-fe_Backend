@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\LoaiController;
 use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\SizeConstroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,12 @@ Route::prefix('Nguyen-Lieu')->group(function () {
 });
 
 
+Route::prefix('Size')->group(function () {
+    Route::post('/Them', [SizeConstroller::class, 'Them']);
+});
+
 Route::prefix('San-Pham')->group(function () {
     Route::post('/Them', [SanPhamController::class, 'Them']);
     Route::post('/Them-Anh', [SanPhamController::class, 'ThemAnh']);
+    Route::get('/Xem', [SanPhamController::class, 'Xem']);
 });
