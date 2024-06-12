@@ -15,11 +15,11 @@ class SanPhamController extends Controller
 
     public function Them(Request $request)
     {
-        $mon = $this->sanPhamServices->ThemMon($request->ten, $request->loaiID, $request->gia);
 
-        foreach ($request->sizeID as $key => $value) {
-            $this->sanPhamServices->ThemChiTietMon($mon, $request->sizeID[$key], $request->soLuongNguyenLieu, $request->nguyenLieuID);
-        }
+        $mon = $this->sanPhamServices->ThemMon($request->ten, $request->loaiID, $request->gia, $request->sizeID);
+
+        $this->sanPhamServices->ThemChiTietMon($mon, $request->soLuongNguyenLieu, $request->nguyenLieuID);
+
         return response([
             'message' => "thành công"
         ]);
@@ -36,5 +36,15 @@ class SanPhamController extends Controller
 
         // Trả về phản hồi thành công
         return response()->json(['success' => true, 'image_name' => $imageName]);
+    }
+
+
+    public function Xem()
+    {
+        $data = $this->sanPhamServices->XemMon();
+        return response()->json([
+            'message' => 'thanh cong',
+            'data2' => $data
+        ]);
     }
 }
