@@ -30,14 +30,12 @@ Route::post('/Dat-Mon/{banID}', [MenuController::class, 'DatMon']);
 Route::get('/Lich-Su-Mon/{thongTin}', [TrangChuController::class, 'LichSuMon']);
 Route::post('/Nhap-Ban/{banID}', [TrangChuController::class, 'NhapThongTin']);
 
-Route::prefix('loai')->group(function () {
+Route::prefix('Loai')->group(function () {
     Route::post('/Them', [LoaiController::class, 'Them']);
+    Route::post('/Xoa', [LoaiController::class, 'Xoa']);
+    Route::post('/Sua/{id}', [LoaiController::class, 'Sua']);
+    Route::get('/', [LoaiController::class, 'Xem']);
 });
-
-Route::prefix('Nguyen-Lieu')->group(function () {
-    Route::post('/Them', [NguyenLieuController::class, 'Them']);
-});
-
 
 Route::prefix('Size')->group(function () {
     Route::post('/Them', [SizeConstroller::class, 'Them']);

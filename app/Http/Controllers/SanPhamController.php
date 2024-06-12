@@ -15,6 +15,7 @@ class SanPhamController extends Controller
 
     public function Them(Request $request)
     {
+
         $mon = $this->sanPhamServices->ThemMon($request->ten, $request->loaiID, $request->gia, $request->sizeID);
 
         $this->sanPhamServices->ThemChiTietMon($mon, $request->soLuongNguyenLieu, $request->nguyenLieuID);
@@ -40,14 +41,10 @@ class SanPhamController extends Controller
 
     public function Xem()
     {
-        $data = $this->sanPhamServices->XemNguyenLieu();
-        $data2 = $this->sanPhamServices->XemLoai();
-        $data3 = $this->sanPhamServices->XemSize();
-        return response([
+        $data = $this->sanPhamServices->XemMon();
+        return response()->json([
             'message' => 'thanh cong',
-            'data' => $data,
-            'data2' => $data2,
-            'data3' => $data3
+            'data2' => $data
         ]);
     }
 }

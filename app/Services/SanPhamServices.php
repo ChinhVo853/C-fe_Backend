@@ -41,12 +41,16 @@ class SanPhamServices
     }
 
 
-    public function XemNguyenLieu()
+    public function XemMon()
     {
-        $data = DB::table('nguyen_lieu')
+        $data = DB::table('mon as m')
+            ->join('loai as l', 'm.loai_id', 'l.id')
+            ->join('size as s', 'm.size_id', 's.í')
             ->select([
                 'id',
-                'ten',
+                'm.ten as tenMon',
+                'l.ten as tenLoai',
+                's.tem as tenSize'
             ])->get();
         return $data;
     }
