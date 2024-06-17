@@ -45,12 +45,12 @@ class SanPhamServices
     {
         $data = DB::table('mon as m')
             ->join('loai as l', 'm.loai_id', 'l.id')
-            ->join('size as s', 'm.size_id', 's.í')
+            ->join('size as s', 'm.size_id', 's.id')
             ->select([
-                'id',
+                'm.id as id',
                 'm.ten as tenMon',
                 'l.ten as tenLoai',
-                's.tem as tenSize'
+                's.ten as tenSize'
             ])->get();
         return $data;
     }

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'nguoi_dung',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'nguoi_dung' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\NguoiDung::class,
         ],
 
         // 'users' => [

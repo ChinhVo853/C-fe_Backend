@@ -8,6 +8,7 @@ use App\Http\Controllers\LoaiController;
 use App\Http\Controllers\NguyenLieuController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\SizeConstroller;
+use App\Http\Controllers\NguoiDungController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,13 @@ use App\Http\Controllers\SizeConstroller;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// nguoi dung
+
+Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');
+Route::get('/me', [NguoiDungController::class, 'me'])->middleware('api');
+Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api');
+
 
 Route::get('/Trang-Chu/{banID}', [TrangChuController::class, 'Home']);
 Route::get('/Menu', [MenuController::class, 'Menu']);
