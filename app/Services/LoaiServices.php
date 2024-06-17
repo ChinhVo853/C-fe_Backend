@@ -9,13 +9,16 @@ class LoaiServices
     public function XemLoai()
     {
         $data = DB::table('loai')
-            ->select('ten')->get();
+            ->select('ten', 'size_duy_nhat')->get();
         return $data;
     }
-    public function ThemLoai(string $ten)
+    public function ThemLoai(string $ten, bool $sizeDuyNhat)
     {
         DB::table('loai')
-            ->insert(['ten' => $ten]);
+            ->insert([
+                'ten' => $ten,
+                'size_duy_nhat' => $sizeDuyNhat
+            ]);
     }
     public function SuaLoai(string $ten, int $id)
     {
@@ -42,5 +45,13 @@ class LoaiServices
             return 1;
         }
         return 0;
+    }
+
+    public function TimTen(string $ten)
+    {
+        $data = DB::table('loai')
+            ->where('ten', '=', $ten)
+            ->select('ten')->get();
+        return $data;
     }
 }

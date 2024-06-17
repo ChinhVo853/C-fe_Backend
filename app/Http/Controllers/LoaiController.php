@@ -27,10 +27,12 @@ class LoaiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ten' => 'required|string|max:255',
+            'sizeDuyNhat' => 'required'
         ], [
             'ten.required' => 'vui lòng nhập tên',
             'ten.string' => 'Tên loại phải là chữ a-z hoặc 0-9',
-            'ten.max' => 'nhiều nhất 255 ký tự'
+            'ten.max' => 'nhiều nhất 255 ký tự',
+            'sizeDuyNhat.required' => 'hãy chọn',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -38,8 +40,15 @@ class LoaiController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        $tenLoai = $this->loaiServices->TimTen($request->ten);
 
-        $this->loaiServices->ThemLoai($request->ten);
+        if ($tenLoai->count() > 0) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Loại đã tồn tại"
+            ], 422);
+        };
+        $this->loaiServices->ThemLoai($request->ten, $request->sizeDuyNhat);
         return response([
             'message' => 'thanh cong'
         ], 200);
@@ -86,6 +95,15 @@ class LoaiController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+
+        $tenLoai = $this->loaiServices->TimTen($request->ten);
+
+        if ($tenLoai->count() > 1) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Loại đã tồn tại"
+            ], 422);
+        };
 
 
         if ($this->loaiServices->SuaLoai($request->ten, $id) == 0) {
