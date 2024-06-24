@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DatMonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrangChuController;
@@ -33,14 +34,14 @@ Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api'
 
 Route::get('/Trang-Chu/{banID}', [TrangChuController::class, 'Home']);
 Route::get('/Menu', [MenuController::class, 'Menu']);
-Route::post('/Dat-Mon/{banID}', [MenuController::class, 'DatMon']);
 Route::get('/Lich-Su-Mon/{thongTin}', [TrangChuController::class, 'LichSuMon']);
 Route::post('/Nhap-Ban/{banID}', [TrangChuController::class, 'NhapThongTin']);
 
 Route::prefix('Loai')->group(function () {
     Route::post('/Them', [LoaiController::class, 'Them']);
     Route::post('/Xoa', [LoaiController::class, 'Xoa']);
-    Route::post('/Sua/{id}', [LoaiController::class, 'Sua']);
+    Route::post('/Sua', [LoaiController::class, 'Sua']);
+    Route::get('/Xem/{id}', [LoaiController::class, 'XemTungLoai']);
     Route::get('/Xem', [LoaiController::class, 'Xem']);
 });
 
@@ -63,4 +64,11 @@ Route::prefix('Nguoi-Dung')->group(function () {
     Route::post('/Xoa', [NguoiDungController::class, 'XoaTaiKhoan']);
     Route::post('/Them', [NguoiDungController::class, 'TaoTaiKhoan']);
     Route::post('/Doi-Mat-Khau', [NguoiDungController::class, 'DoiMatKhau']);
+});
+
+
+Route::prefix('Dat-Mon')->group(function () {
+    Route::get('/ban/{id}', [DatMonController::class, 'TaoDatMon']);
+    Route::post('/Kiem-Tra-Ban', [DatMonController::class, 'KiemTraMaBan']);
+    Route::post('/Them-Mon', [MenuController::class, 'DatMon']);
 });

@@ -9,7 +9,7 @@ class LoaiServices
     public function XemLoai()
     {
         $data = DB::table('loai')
-            ->select('ten', 'size_duy_nhat')->get();
+            ->select('id', 'ten', 'size_duy_nhat')->get();
         return $data;
     }
     public function ThemLoai(string $ten, bool $sizeDuyNhat)
@@ -19,6 +19,15 @@ class LoaiServices
                 'ten' => $ten,
                 'size_duy_nhat' => $sizeDuyNhat
             ]);
+    }
+
+    public function XemMoiLoai(int $id)
+    {
+        $data = DB::table('loai')
+            ->where('id', $id)
+            ->select('id', 'ten', 'size_duy_nhat')
+            ->first();
+        return $data;
     }
     public function SuaLoai(string $ten, int $id)
     {
