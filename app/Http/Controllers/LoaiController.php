@@ -23,6 +23,16 @@ class LoaiController extends Controller
             'data'    => $data
         ], 200);
     }
+
+    public function XemTungLoai($id)
+    {
+        $data = $this->loaiServices->XemMoiLoai($id);
+        return response()->json([
+            'message' => 'thanh cong',
+            'data'    => $data
+        ], 200);
+    }
+
     public function Them(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -79,7 +89,7 @@ class LoaiController extends Controller
         ], 200);
     }
 
-    public function Sua(Request $request, int $id)
+    public function Sua(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'ten' => 'required|string|max:255',
@@ -106,7 +116,7 @@ class LoaiController extends Controller
         };
 
 
-        if ($this->loaiServices->SuaLoai($request->ten, $id) == 0) {
+        if ($this->loaiServices->SuaLoai($request->ten, $request->id) == 0) {
             return response()->json([
                 'status' => 'error',
                 'errors' =>  'không tìm thấy loại'

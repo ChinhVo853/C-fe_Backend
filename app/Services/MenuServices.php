@@ -9,7 +9,7 @@ class MenuServices
     public function XemMenu()
     {
         $data =
-            DB::table('mon as m')
+            DB::table('mon_an as m')
             ->join('loai as l', 'l.id', '=', 'm.loai_id')
             ->join('size as s', 's.id', '=', 'm.size_id')
             ->select(
@@ -17,7 +17,8 @@ class MenuServices
                 'm.ten as ten_mon',
                 'l.ten as ten_loai',
                 'm.gia',
-                's.ten as ten_size'
+                's.ten as ten_size',
+                'm.anh'
             )
             ->get();
         return $data;
@@ -63,10 +64,28 @@ class MenuServices
             ]);
     }
 
-    public function CapNhatBan($banID, $hoaDon)
+
+    public function TimMon(string $tenMon, $size)
     {
-        DB::table('ban')
-            ->where('id', '=', $banID)
-            ->update(['hoa_don_id' => $hoaDon]);
+
+        $monAn = DB::table('mon_an as ma')
+            ->select('ma.id')
+            ->join('size as s', 's.id', '=', 'ma.size_id')
+            ->where('ma.ten', $tenMon)
+            ->where('s.ten', $size)
+            ->first();
+        return $monAn;
+    }
+
+
+
+    public function ThemMon(int $datMonID, int $soLuong, int $monID)
+    {
+        DB::table('chi_tiet_dat_mon')
+            ->insert([
+                'dat_mon_id' => $datMonID,
+                'mon_an_id'  => $monID,
+                'so_luong' => $soLuong
+            ]);
     }
 }

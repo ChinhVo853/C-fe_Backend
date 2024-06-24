@@ -16,37 +16,46 @@ class MenuController extends Controller
     public function Menu()
     {
         $result = $this->MenuServices->XemMenu();
-        $groupedResult = [];
+        $data = [];
         foreach ($result as $item) {
-            $key = $item->ten_loai . '_' . $item->ten_mon;
-            if (!isset($groupedResult[$key])) {
-                $groupedResult[$key] = [
+            $loaiKey = $item->ten_loai;
+            $monKey = $item->ten_mon;
+
+            if (!isset($data[$loaiKey])) {
+                $data[$loaiKey] = [
                     'ten_loai' => $item->ten_loai,
+                    'mon' => []
+                ];
+            }
+
+            if (!isset($data[$loaiKey]['mon'][$monKey])) {
+                $data[$loaiKey]['mon'][$monKey] = [
                     'ten_mon' => $item->ten_mon,
                     'gia' => [],
                     'sizes' => [],
+                    'anh'  => $item->anh
                 ];
             }
-            $groupedResult[$key]['gia'][] = $item->gia;
-            $groupedResult[$key]['sizes'][] = $item->ten_size;
-            // Loại bỏ các giá trị trùng lặp
-            $groupedResult[$key]['sizes'] = array_unique($groupedResult[$key]['sizes']);
-            $groupedResult[$key]['gia'] = array_unique($groupedResult[$key]['gia']);
-        }
+            // Thêm thông tin giá và size
+            $data[$loaiKey]['mon'][$monKey]['gia'][] = $item->gia;
+            $data[$loaiKey]['mon'][$monKey]['sizes'][] = $item->ten_size;
 
+            // Loại bỏ các giá trị trùng lặp
+            $data[$loaiKey]['mon'][$monKey]['gia'] = array_unique($data[$loaiKey]['mon'][$monKey]['gia']);
+            $data[$loaiKey]['mon'][$monKey]['sizes'] = array_unique($data[$loaiKey]['mon'][$monKey]['sizes']);
+        }
         return response()->json([
             'message' => 'thanh công',
-            'data' => array_values($groupedResult),
+            'data' => $data,
         ]);
     }
 
 
-    public function DatMon(Request $request, $banID)
+
+    public function DatMon(Request $request)
     {
-        $lichSuBanID = $this->MenuServices->TaoHoaDon($request);
-        $tongTien = $this->MenuServices->LuuChiTietBan($request, $lichSuBanID);
-        $this->MenuServices->CapNhatTongTienLS($tongTien, $lichSuBanID);
-        $this->MenuServices->CapNhatBan($banID, $lichSuBanID);
+        $monID = $this->MenuServices->TimMon($request->tenMon, $request->tenSize);
+        $this->MenuServices->ThemMon($request->datMonID, $request->soLuong, $monID->id);
         return response()->json([
             'message' => 'thanh cong',
         ]);
