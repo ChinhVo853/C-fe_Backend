@@ -11,6 +11,14 @@ class SizeServices
         $data = DB::table('size')->select('id', 'ten')->get();
         return $data;
     }
+    public function MoiSize(int $id)
+    {
+        $data = DB::table('size')
+            ->where('id', $id)
+            ->select('ten')
+            ->first();
+        return $data;
+    }
     public function ThemSize(string $ten)
     {
         DB::table('size')

@@ -47,7 +47,9 @@ Route::prefix('Loai')->group(function () {
 
 Route::prefix('Size')->group(function () {
     Route::get('/Xem', [SizeConstroller::class, 'Xem']);
-    Route::post('/Sua/{id}', [SizeConstroller::class, 'Sua']);
+    Route::get('/Xem/{id}', [SizeConstroller::class, 'TungSize']);
+
+    Route::post('/Sua', [SizeConstroller::class, 'Sua']);
     Route::post('/Them', [SizeConstroller::class, 'Them']);
     Route::post('/Xoa', [SizeConstroller::class, 'Xoa']);
 });
