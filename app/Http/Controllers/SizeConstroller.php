@@ -23,6 +23,15 @@ class SizeConstroller extends Controller
         ], 200);
     }
 
+    public function TungSize($id)
+    {
+        $data = $this->sizeServices->MoiSize($id);
+        return response()->json([
+            'message' => 'thanh cong',
+            'data'    => $data
+        ], 200);
+    }
+
     public function Them(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -54,7 +63,7 @@ class SizeConstroller extends Controller
         ]);
     }
 
-    public function Sua(Request $request, int $id)
+    public function Sua(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'ten' => 'required|string|max:100',
@@ -78,7 +87,7 @@ class SizeConstroller extends Controller
             ], 422);
         };
 
-        if ($this->sizeServices->SuaSize($request->ten, $id) == 0) {
+        if ($this->sizeServices->SuaSize($request->ten, $request->id) == 0) {
             return response()->json([
                 'status' => 'error',
                 'errors' =>  'không tìm thấy Size'
