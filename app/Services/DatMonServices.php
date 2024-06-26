@@ -35,12 +35,13 @@ class DatMonServices
         return $data;
     }
 
-    public function TimMa(int $ma)
+    public function TimMa(int $ma, int $ban)
     {
         $data = DB::table('dat_mon')
             ->select('id')
             ->where('id', '=', $ma)
+            ->where('ban_id', '=', $ban)
             ->first();
-        return $data->id;
+        return $data;
     }
 }

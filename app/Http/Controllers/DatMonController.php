@@ -21,8 +21,8 @@ class DatMonController extends Controller
         if ($data == 0) {
             return response()->json([
                 'status' => 'error',
-                'errors' =>  'Bàn đã mở'
-            ], 422);
+                'message' =>  'Bàn đã mở'
+            ], 200);
         }
         return response()->json([
             'message' => 'thanh cong',
@@ -34,10 +34,12 @@ class DatMonController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ma' => 'required|integer',
-
+            'ban' => 'required|integer',
         ], [
             'ma.required' => 'vui lòng nhập mã',
             'ma.integer' => 'Mã phải là số 0-9',
+            'ban.required' => 'vui lòng nhập bàn',
+            'ban.integer' => 'Mã phải là số 0-9',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -46,9 +48,9 @@ class DatMonController extends Controller
             ], 422);
         }
 
-        $data = $this->DatMonServices->TimMa($request->ma);
+        $data = $this->DatMonServices->TimMa($request->ma, $request->ban);
 
-        if (!isset($data)) {
+        if (!isset($data->id)) {
             return response()->json([
                 'message' => 'Thất Bại',
                 'errors' => "Mã không đúng"
