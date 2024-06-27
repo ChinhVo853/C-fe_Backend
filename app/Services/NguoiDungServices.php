@@ -35,6 +35,7 @@ class NguoiDungServices
                 'nd.id',
                 'nd.ho_ten',
                 'nd.so_dien_thoai',
+                'email',
                 'q.ten as ten_quyen'
             )->join('quyen as q', 'nd.quyen_id', '=', 'q.id')->get();
         return $data;

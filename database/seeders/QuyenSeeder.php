@@ -18,6 +18,6 @@ class QuyenSeeder extends Seeder
         DB::table('quyen')
             ->insert(['ten' => 'Quản lý']);
         DB::table('quyen')
-            ->insert(['ten' => 'NBhân viên']);
+            ->insert(['ten' => 'Nhân viên']);
     }
 }

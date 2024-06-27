@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\BanController;
 use App\Http\Controllers\DatMonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TrangChuController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\LoaiController;
 use App\Http\Controllers\SanPhamController;
@@ -30,12 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');
 Route::get('/me', [NguoiDungController::class, 'me'])->middleware('api');
 Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api');
-
-
-Route::get('/Trang-Chu/{banID}', [TrangChuController::class, 'Home']);
 Route::get('/Menu', [MenuController::class, 'Menu']);
-Route::get('/Lich-Su-Mon/{thongTin}', [TrangChuController::class, 'LichSuMon']);
-Route::post('/Nhap-Ban/{banID}', [TrangChuController::class, 'NhapThongTin']);
+
 
 Route::prefix('Loai')->group(function () {
     Route::post('/Them', [LoaiController::class, 'Them']);
@@ -73,4 +69,10 @@ Route::prefix('Dat-Mon')->group(function () {
     Route::get('/ban/{id}', [DatMonController::class, 'TaoDatMon']);
     Route::post('/Kiem-Tra-Ban', [DatMonController::class, 'KiemTraMaBan']);
     Route::post('/Them-Mon', [MenuController::class, 'DatMon']);
+});
+
+
+Route::prefix('Ban')->group(function () {
+    Route::get('/Xem', [BanController::class, 'DanhSachBan']);
+    Route::post('/Xoa', [BanController::class, 'Xoa']);
 });
