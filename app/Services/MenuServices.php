@@ -88,4 +88,78 @@ class MenuServices
                 'so_luong' => $soLuong
             ]);
     }
+
+    public function TimDatMon(int $id)
+    {
+        $data = DB::table('dat_mon')
+            ->select('id')
+            ->where('ban_id', '=', $id)
+            ->first();
+        return $data;
+    }
+
+    public function DSChiTietDatMon(int $id)
+    {
+        $data = DB::table('chi_tiet_dat_mon as ctdm')
+            ->join('mon_an as m', 'm.id', '=', 'ctdm.mon_an_id')
+            ->join('size as s', 's.id', '=', 'm.size_id')
+            ->where('ctdm.dat_mon_id', '=', $id)
+            ->select(
+                'm.ten as ten_mon',
+                'm.gia',
+                's.ten as ten_size',
+                'so_luong',
+                'm.anh'
+            )
+            ->get();
+        return $data;
+    }
+
+    public function TimCTDM(int $monID, int $datMonID)
+    {
+        $data = DB::table('chi_tiet_dat_mon')
+            ->where('mon_an_id', $monID)
+            ->where('dat_mon_id', $datMonID)
+            ->select('id')
+            ->first();
+        return $data;
+    }
+
+    public function ThemSoLuong(int $monID, int $datMonID)
+    {
+        DB::table('chi_tiet_dat_mon')
+            ->where('mon_an_id', $monID)
+            ->where('dat_mon_id', $datMonID)
+            ->update([
+                'so_luong' => DB::raw('so_luong + 1')
+            ]);
+    }
+
+    public function GiamSoLuong(int $monID, int $datMonID)
+    {
+        DB::table('chi_tiet_dat_mon')
+            ->where('mon_an_id', $monID)
+            ->where('dat_mon_id', $datMonID)
+            ->update([
+                'so_luong' => DB::raw('so_luong - 1')
+            ]);
+    }
+
+    public function KiemTraSL(int $monID, int $datMonID)
+    {
+        $data = DB::table('chi_tiet_dat_mon')
+            ->where('mon_an_id', $monID)
+            ->where('dat_mon_id', $datMonID)
+            ->select('so_luong')
+            ->first();
+        return $data;
+    }
+
+    public function Xoa(int $monID, int $datMonID)
+    {
+        DB::table('chi_tiet_dat_mon')
+            ->where('mon_an_id', $monID)
+            ->where('dat_mon_id', $datMonID)
+            ->delete();
+    }
 }

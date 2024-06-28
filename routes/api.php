@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');
 Route::get('/me', [NguoiDungController::class, 'me'])->middleware('api');
 Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api');
-Route::get('/Menu', [MenuController::class, 'Menu']);
+Route::get('/Menu/{id}', [MenuController::class, 'Menu']);
 
 
 Route::prefix('Loai')->group(function () {
@@ -69,6 +69,8 @@ Route::prefix('Dat-Mon')->group(function () {
     Route::get('/ban/{id}', [DatMonController::class, 'TaoDatMon']);
     Route::post('/Kiem-Tra-Ban', [DatMonController::class, 'KiemTraMaBan']);
     Route::post('/Them-Mon', [MenuController::class, 'DatMon']);
+    Route::post('/Them-So-Luong', [MenuController::class, 'ThemSL']);
+    Route::post('/Giam-So-Luong', [MenuController::class, 'GiamSL']);
 });
 
 
