@@ -9,6 +9,7 @@ use App\Http\Controllers\LoaiController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\SizeConstroller;
 use App\Http\Controllers\NguoiDungController;
+use App\Http\Controllers\YeuCauConTRoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,13 @@ Route::prefix('Dat-Mon')->group(function () {
 Route::prefix('Ban')->group(function () {
     Route::get('/Xem', [BanController::class, 'DanhSachBan']);
     Route::post('/Xoa', [BanController::class, 'Xoa']);
+});
+
+
+
+Route::prefix('Yeu-Cau')->group(function () {
+    Route::get('/Xem/{ban}', [YeuCauConTRoller::class, 'XemDS']);
+    Route::get('/Xem-Tat-Ca', [YeuCauConTRoller::class, 'XemYeuCau']);
+    Route::post('/Tao', [YeuCauConTRoller::class, 'TaoYeuCau']);
+    Route::get('/Xac-Nhan/{id}', [YeuCauConTRoller::class, 'XacNhanYeuCau']);
 });
