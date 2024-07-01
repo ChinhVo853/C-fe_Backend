@@ -7,6 +7,7 @@ use App\Services\NguoiDungServices;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class NguoiDungController extends Controller
 {
@@ -17,7 +18,10 @@ class NguoiDungController extends Controller
         $this->NguoiDungServices = $NguoiDungServices;
     }
 
-
+    public function showLoginForm()
+    {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
     public function login(Request $request)
     {
 
@@ -30,19 +34,17 @@ class NguoiDungController extends Controller
             'email.email' => 'Email không hợp lệ',
             'password.required' => 'không được để trống',
         ]);
-
-        // If validation fails, return a 422 response with errors
         if ($validation->fails()) {
             return response()->json(['errors' => $validation->errors()], 422);
         }
 
-        // Get the credentials from the request
-        $credentials = $request->only(['email', 'password']);
-        // Attempt to authenticate the user with the provided credentials
+        $credentials = request([
+            'email', 'password'
+        ]);
+
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         // Get the TTL (Time To Live) from the JWT configuration
         $ttl = config('jwt.ttl');
 
@@ -61,6 +63,7 @@ class NguoiDungController extends Controller
 
     public function logout()
     {
+
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
