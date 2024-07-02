@@ -18,7 +18,7 @@ class SizeSeeder extends Seeder
         DB::table('size')
             ->insert(['ten' => 'Mặc định']);
         DB::table('size')
-            ->insert(['ten' => 'X']);
+            ->insert(['ten' => 'S']);
         DB::table('size')
             ->insert(['ten' => 'M']);
         DB::table('size')

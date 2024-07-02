@@ -237,15 +237,7 @@ class MonAnSeeder extends Seeder
                 'trang_thai' => false
             ]);
 
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'C2',
-                'gia' => 15000,
-                'so_luong_danh_gia' => 0,
-                'loai_id' => 6,
-                'size_id' => 1,
-                'trang_thai' => false
-            ]);
+
 
         DB::table('mon_an')
             ->insert([

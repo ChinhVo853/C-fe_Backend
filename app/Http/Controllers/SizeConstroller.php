@@ -51,12 +51,14 @@ class SizeConstroller extends Controller
         }
         $tenLoai = $this->sizeServices->TimTen($request->ten);
 
-        if ($tenLoai->count() > 0) {
+        if (isset($tenLoai)) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Size đã tồn tại"
             ], 422);
         };
+
+
         $this->sizeServices->ThemSize($request->ten);
         return response([
             'message' => "thành công",
@@ -80,7 +82,7 @@ class SizeConstroller extends Controller
         }
 
         $tenLoai = $this->sizeServices->TimTen($request->ten);
-        if ($tenLoai->count() > 0) {
+        if (isset($tenLoai)) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Size đã tồn tại"
@@ -113,6 +115,17 @@ class SizeConstroller extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+
+        $kiemTra = $this->sizeServices->TimIDMon($request->id);
+        if (isset($kiemTra)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' =>  'Có món thuộc size này không thể xoá'
+            ], 422);
+        }
+
+
+
         if ($this->sizeServices->XoaSize($request->id) == 0 || $request->id == 1) {
             return response()->json([
                 'status' => 'error',

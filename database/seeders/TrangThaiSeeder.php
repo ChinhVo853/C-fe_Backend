@@ -17,22 +17,22 @@ class TrangThaiSeeder extends Seeder
     {
         DB::table('trang_thai')
             ->insert([
-                'ten' => 'trống',
+                'ten' => 'Trống',
             ]);
 
         DB::table('trang_thai')
             ->insert([
-                'ten' => 'mở',
+                'ten' => 'Mở',
             ]);
 
         DB::table('trang_thai')
             ->insert([
-                'ten' => 'chờ thanh toán',
+                'ten' => 'Chờ thanh toán',
             ]);
 
         DB::table('trang_thai')
             ->insert([
-                'ten' => 'dọn bàn',
+                'ten' => 'Dọn bàn',
             ]);
     }
 }
