@@ -37,12 +37,12 @@ class LoaiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ten' => 'required|string|max:255',
-            'sizeDuyNhat' => 'required'
+
         ], [
             'ten.required' => 'vui lòng nhập tên',
             'ten.string' => 'Tên loại phải là chữ a-z hoặc 0-9',
             'ten.max' => 'nhiều nhất 255 ký tự',
-            'sizeDuyNhat.required' => 'hãy chọn',
+
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -51,8 +51,7 @@ class LoaiController extends Controller
             ], 422);
         }
         $tenLoai = $this->loaiServices->TimTen($request->ten);
-
-        if ($tenLoai->count() > 0) {
+        if (isset($tenLoai)) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Loại đã tồn tại"
@@ -78,6 +77,16 @@ class LoaiController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+
+        $kiemTra = $this->loaiServices->TimIDMon($request->id);
+        if (isset($kiemTra)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' =>  'Có món thuộc loại này không thể xoá'
+            ], 422);
+        }
+
+
         if ($this->loaiServices->XoaLoai($request->id) == 0) {
             return response()->json([
                 'status' => 'error',
@@ -108,7 +117,7 @@ class LoaiController extends Controller
 
         $tenLoai = $this->loaiServices->TimTen($request->ten);
 
-        if ($tenLoai->count() > 1) {
+        if (isset($tenLoai)) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Loại đã tồn tại"

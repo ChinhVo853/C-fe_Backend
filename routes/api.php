@@ -72,6 +72,8 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/Them-Anh', [SanPhamController::class, 'ThemAnh']);
         Route::get('/Xem', [SanPhamController::class, 'Xem']);
         Route::get('/Xem/{id}', [SanPhamController::class, 'XemLoai']);
+        Route::post('/Trang-Thai', [SanPhamController::class, 'CapNhatTrangThai']);
+        Route::post('/Xoa', [SanPhamController::class, 'Xoa']);
     });
 });
 

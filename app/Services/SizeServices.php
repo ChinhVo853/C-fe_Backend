@@ -28,7 +28,7 @@ class SizeServices
     public function TimTen(string $ten)
     {
         $data = DB::table('size')->select('ten')
-            ->where('ten', '=', $ten)->get();
+            ->where('ten', '=', $ten)->first();
         return ($data);
     }
 
@@ -59,5 +59,15 @@ class SizeServices
             return 1;
         }
         return 0;
+    }
+
+
+    public function TimIDMon(int $id)
+    {
+        $data = DB::table('mon_an')
+            ->where('size_id', $id)
+            ->select('id')
+            ->first();
+        return $data;
     }
 }

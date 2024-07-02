@@ -60,7 +60,16 @@ class LoaiServices
     {
         $data = DB::table('loai')
             ->where('ten', '=', $ten)
-            ->select('ten')->get();
+            ->select('ten')->first();
+        return $data;
+    }
+
+    public function TimIDMon(int $id)
+    {
+        $data = DB::table('mon_an')
+            ->where('loai_id', $id)
+            ->select('id')
+            ->first();
         return $data;
     }
 }

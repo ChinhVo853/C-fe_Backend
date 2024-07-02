@@ -48,16 +48,18 @@ class SanPhamController extends Controller
                     'errors' => "Vui lòng nhập giá"
                 ], 422);
             }
-            $timMon = $this->sanPhamServices->TimMon($request->foodName, $request->foodSize[$i], $request->foodCategory);
 
-            if (isset($timMon)) {
-                return response()->json([
-                    'status' => 'error',
-                    'errors' => "Món ăn đã tồn tại"
-                ], 422);
-            }
 
             if ($request->sizeDuyNhat) {
+                $timMon = $this->sanPhamServices->TimMon($request->foodName, 1, $request->foodCategory);
+
+                if (isset($timMon)) {
+                    return response()->json([
+                        'status' => 'error',
+                        'errors' => "Món ăn đã tồn tại"
+                    ], 422);
+                }
+
                 $mon = $this->sanPhamServices->ThemMon(
                     $request->foodName,
                     $request->foodCategory,
@@ -66,6 +68,15 @@ class SanPhamController extends Controller
                     $request->foodStatus
                 );
             } else {
+                $timMon = $this->sanPhamServices->TimMon($request->foodName, $request->foodSize[$i], $request->foodCategory);
+
+                if ($timMon->count() > 1) {
+                    return response()->json([
+                        'status' => 'error',
+                        'errors' => "Món ăn đã tồn tại"
+                    ], 422);
+                }
+
                 $mon = $this->sanPhamServices->ThemMon(
                     $request->foodName,
                     $request->foodCategory,
@@ -104,6 +115,14 @@ class SanPhamController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        $timMon = $this->sanPhamServices->TimMon($request->tenMon, $request->sizeID, $request->loaiID);
+
+        if ($timMon->count() > 1) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Món ăn đã tồn tại"
+            ], 422);
+        }
 
         if ($request->hasFile('image')) {
 
@@ -116,6 +135,7 @@ class SanPhamController extends Controller
 
             // Trả về phản hồi thành công
         }
+
 
         $this->sanPhamServices->SuaMon($request->tenMon, $request->MonID, $request->gia, $request->trangThai);
         return response()->json([
@@ -141,5 +161,57 @@ class SanPhamController extends Controller
             'message' => 'thanh cong',
             'data' => $data
         ]);
+    }
+
+    public function CapNhatTrangThai(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+            'trangThai' => 'required|integer',
+
+        ], [
+            'id.required' => 'Không tìm thấy id loại',
+            'id.integer' => 'Tên loại phải là số 0-9',
+            'trangThai.required' => 'Không tìm thấy id loại',
+            'trangThai.integer' => 'Tên loại phải là số 0-9',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+
+        $this->sanPhamServices->SuaTrangThai($request->id, $request->trangThai);
+        return response()->json([
+            'message' => 'thanh cong',
+        ]);
+    }
+
+
+    public function Xoa(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+        ], [
+            'id.required' => 'Không tìm thấy id loại',
+            'id.integer' => 'Tên loại phải là số 0-9',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        if ($this->sanPhamServices->XoaMon($request->id) == 0) {
+            return response()->json([
+                'status' => 'error',
+                'errors' =>  'không tìm thấy loại'
+            ], 422);
+        }
+        return response()->json([
+            'message' => 'thanh cong'
+        ], 200);
     }
 }

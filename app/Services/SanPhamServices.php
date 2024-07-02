@@ -30,6 +30,8 @@ class SanPhamServices
     {
         $mon = DB::table('mon_an')
             ->where('ten', $ten)
+            ->where('size_id', $size)
+            ->where('loai_id', $loai)
             ->select('id')
             ->get();
 
@@ -50,7 +52,9 @@ class SanPhamServices
                 'm.gia',
                 'm.anh',
                 'm.so_luong_danh_gia',
-                'm.trang_thai'
+                'm.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID'
             ])
             ->first();
 
@@ -83,9 +87,21 @@ class SanPhamServices
                 'm.gia',
                 'm.anh',
                 'm.so_luong_danh_gia',
-                'm.trang_thai'
+                'm.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID'
             ])->get();
         return $data;
+    }
+
+
+    public function SuaTrangThai(int $id, int $trangThai)
+    {
+        DB::table('mon_an')
+            ->where('id', $id)
+            ->update([
+                'trang_thai' => $trangThai
+            ]);
     }
 
     public function XemLoai()
@@ -118,5 +134,20 @@ class SanPhamServices
                 'gia' => $gia,
                 'trang_thai' => $trangThai
             ]);
+    }
+
+    public function XoaMon($id)
+    {
+
+        $data = DB::table('mon_an')
+            ->where('id', '=', $id)
+            ->select('id')->get();
+        if ($data->count() > 0) {
+            DB::table('mon_an')
+                ->where('id', $id)
+                ->delete();
+            return 1;
+        }
+        return 0;
     }
 }
