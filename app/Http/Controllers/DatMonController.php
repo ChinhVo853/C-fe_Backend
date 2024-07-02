@@ -22,7 +22,7 @@ class DatMonController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' =>  'Bàn đã mở'
-            ], 200);
+            ], 422);
         }
         return response()->json([
             'message' => 'thanh cong',

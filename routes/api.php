@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\DatMonController;
+use App\Http\Controllers\HoaDonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
@@ -84,18 +85,14 @@ Route::prefix('Dat-Mon')->group(function () {
     Route::post('/Giam-So-Luong', [MenuController::class, 'GiamSL']);
 });
 
-
-
-
-
-
-
-
-
-
 Route::prefix('Yeu-Cau')->group(function () {
     Route::get('/Xem/{ban}', [YeuCauConTRoller::class, 'XemDS']);
     Route::get('/Xem-Tat-Ca', [YeuCauConTRoller::class, 'XemYeuCau']);
     Route::post('/Tao', [YeuCauConTRoller::class, 'TaoYeuCau']);
     Route::get('/Xac-Nhan/{id}', [YeuCauConTRoller::class, 'XacNhanYeuCau']);
+});
+
+Route::prefix('Hoa-Don')->group(function () {
+    Route::get('/Goi-Mon/{ban}', [HoaDonController::class, 'GoiMon']);
+    Route::get('/Danh-Sach-Chi-Tiet/{ban}', [HoaDonController::class, 'DanhSachChiTiet']);
 });
