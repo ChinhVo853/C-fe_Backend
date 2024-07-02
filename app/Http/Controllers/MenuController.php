@@ -34,7 +34,8 @@ class MenuController extends Controller
                     'ten_mon' => $item->ten_mon,
                     'gia' => [],
                     'sizes' => [],
-                    'anh'  => $item->anh
+                    'anh'  => $item->anh,
+                    'trang_thai' => $item->trang_thai
                 ];
             }
             // Thêm thông tin giá và size

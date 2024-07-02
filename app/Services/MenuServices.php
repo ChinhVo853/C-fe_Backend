@@ -18,7 +18,8 @@ class MenuServices
                 'l.ten as ten_loai',
                 'm.gia',
                 's.ten as ten_size',
-                'm.anh'
+                'm.anh',
+                'm.trang_thai'
             )
             ->get();
         return $data;
