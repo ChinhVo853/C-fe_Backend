@@ -59,13 +59,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/Doi-Mat-Khau', [NguoiDungController::class, 'DoiMatKhau']);
     });
 
-    Route::prefix('Dat-Mon')->group(function () {
-        Route::get('/ban/{id}', [DatMonController::class, 'TaoDatMon']);
-        Route::post('/Kiem-Tra-Ban', [DatMonController::class, 'KiemTraMaBan']);
-        Route::post('/Them-Mon', [MenuController::class, 'DatMon']);
-        Route::post('/Them-So-Luong', [MenuController::class, 'ThemSL']);
-        Route::post('/Giam-So-Luong', [MenuController::class, 'GiamSL']);
-    });
+
 
     Route::prefix('San-Pham')->group(function () {
         Route::post('/Them', [SanPhamController::class, 'Them']);
@@ -82,7 +76,13 @@ Route::get('/Menu/{id}', [MenuController::class, 'Menu']);
 
 
 
-
+Route::prefix('Dat-Mon')->group(function () {
+    Route::get('/ban/{id}', [DatMonController::class, 'TaoDatMon']);
+    Route::post('/Kiem-Tra-Ban', [DatMonController::class, 'KiemTraMaBan']);
+    Route::post('/Them-Mon', [MenuController::class, 'DatMon']);
+    Route::post('/Them-So-Luong', [MenuController::class, 'ThemSL']);
+    Route::post('/Giam-So-Luong', [MenuController::class, 'GiamSL']);
+});
 
 
 
