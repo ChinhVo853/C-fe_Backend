@@ -38,4 +38,5 @@ class BanServices
         DB::table('ban')
             ->insert(['ten_ban' => $ten_ban]);
     }
+    /**/
 }

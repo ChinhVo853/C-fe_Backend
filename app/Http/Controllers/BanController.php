@@ -76,5 +76,6 @@ class BanController extends Controller
         return response([
             'message' => "thành công",
         ]);
+        /**/
     }
 }

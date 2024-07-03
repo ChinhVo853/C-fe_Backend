@@ -65,3 +65,4 @@ class NguoiDungServices
             ->update(['ho_ten' => $ho_ten,'so_dien_thoai'=>$so_dien_thoai]);
     }
 }
+/**/

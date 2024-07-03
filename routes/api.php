@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // nguoi dung
 
-
+/**/
 Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');
 Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api');
 Route::get('/login', [NguoiDungController::class, 'showLoginForm'])->name('login');
