@@ -36,7 +36,10 @@ class BanServices
     public function ThemBan(string $ten_ban)
     {
         DB::table('ban')
-            ->insert(['ten_ban' => $ten_ban]);
+            ->insert([
+                'ten_ban' => $ten_ban,
+                'trang_thai_id' => 1
+            ]);
     }
     /**/
 }
