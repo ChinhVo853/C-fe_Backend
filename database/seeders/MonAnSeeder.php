@@ -22,7 +22,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'cafe_den_da.jpg'
             ]);
 
         DB::table('mon_an')
@@ -32,7 +33,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 3,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'cafe_den_da.jpg'
             ]);
 
         DB::table('mon_an')
@@ -42,7 +44,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'cafe_sua_da.jpg'
             ]);
 
         DB::table('mon_an')
@@ -52,7 +55,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 3,
-                'trang_thai' => false
+                'trang_thai' =>
+                false,
+                'anh' => 'cafe_sua_da.jpg'
             ]);
 
         DB::table('mon_an')
@@ -62,7 +67,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'Bac_Xiu.jpg'
             ]);
 
         DB::table('mon_an')
@@ -72,7 +78,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 1,
                 'size_id' => 3,
-                'trang_thai' => false
+                'trang_thai' =>
+                false,
+                'anh' => 'Bac_Xiu.jpg'
             ]);
 
         DB::table('mon_an')
@@ -82,7 +90,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 2,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'Thai_Xanh.jpg'
             ]);
 
         DB::table('mon_an')
@@ -92,7 +101,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 2,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'Thai_do.jpg'
             ]);
 
         DB::table('mon_an')
@@ -102,7 +112,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 2,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' =>
+                false,
+                'anh' => 'Truyen_thong.jpg'
             ]);
 
         DB::table('mon_an')
@@ -112,7 +124,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 3,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'HTS.jpg'
             ]);
 
         DB::table('mon_an')
@@ -122,7 +135,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 3,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'HTD.jpg'
             ]);
 
         DB::table('mon_an')
@@ -132,7 +146,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 3,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'HTV.jpg'
             ]);
 
         DB::table('mon_an')
@@ -142,7 +157,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 4,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'STB.jpg'
             ]);
 
         DB::table('mon_an')
@@ -152,7 +168,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 4,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'STD.jpg'
             ]);
 
         DB::table('mon_an')
@@ -162,7 +179,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 4,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'STS.jpg'
             ]);
 
         DB::table('mon_an')
@@ -172,7 +190,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 4,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'STMC.jpg'
             ]);
 
         DB::table('mon_an')
@@ -182,7 +201,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 5,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'NEDH.jpg'
             ]);
 
         DB::table('mon_an')
@@ -192,7 +212,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 5,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' =>
+                false,
+                'anh' => 'NEC.jpg'
             ]);
 
         DB::table('mon_an')
@@ -202,7 +224,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 5,
                 'size_id' => 2,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'NECR.jpg'
             ]);
 
 
@@ -214,7 +237,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 6,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'Sting.jpg'
             ]);
 
         DB::table('mon_an')
@@ -224,7 +248,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 6,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'BH.jpg'
             ]);
 
         DB::table('mon_an')
@@ -234,7 +259,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 6,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'C2.jpg'
             ]);
 
 
@@ -246,7 +272,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 6,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'Pepsi.jpg'
             ]);
 
         DB::table('mon_an')
@@ -256,7 +283,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 7,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'MCB.jpg'
             ]);
 
         DB::table('mon_an')
@@ -266,7 +294,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 7,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'MCHS.jpg'
+
             ]);
 
         DB::table('mon_an')
@@ -276,7 +306,9 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 7,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'MCTC.jpg'
+
             ]);
 
         DB::table('mon_an')
@@ -286,7 +318,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 8,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'BTT.jpg'
             ]);
 
         DB::table('mon_an')
@@ -296,7 +329,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 8,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'BTC.jpg'
             ]);
 
         DB::table('mon_an')
@@ -306,28 +340,10 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 8,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'BTC.jpg'
             ]);
 
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'Combo 1',
-                'gia' => 45000,
-                'so_luong_danh_gia' => 0,
-                'loai_id' => 9,
-                'size_id' => 1,
-                'trang_thai' => false
-            ]);
-
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'Combo 2',
-                'gia' => 45000,
-                'so_luong_danh_gia' => 0,
-                'loai_id' => 9,
-                'size_id' => 1,
-                'trang_thai' => false
-            ]);
 
         DB::table('mon_an')
             ->insert([
@@ -336,7 +352,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 10,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'grsc.jpg'
             ]);
 
         DB::table('mon_an')
@@ -346,7 +363,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 10,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'grsn.jpg'
             ]);
 
         DB::table('mon_an')
@@ -356,7 +374,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 10,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'grnv.jpg'
             ]);
 
 
@@ -367,7 +386,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 11,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'bt.jpg'
             ]);
 
         DB::table('mon_an')
@@ -377,7 +397,8 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 11,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'tt.jpg'
             ]);
 
         DB::table('mon_an')
@@ -387,17 +408,19 @@ class MonAnSeeder extends Seeder
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 11,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'ct.jpg'
             ]);
 
         DB::table('mon_an')
             ->insert([
-                'ten' => 'Mỳ',
+                'ten' => 'Mì',
                 'gia' => 7000,
                 'so_luong_danh_gia' => 0,
                 'loai_id' => 11,
                 'size_id' => 1,
-                'trang_thai' => false
+                'trang_thai' => false,
+                'anh' => 'my.jpg'
             ]);
     }
 }
