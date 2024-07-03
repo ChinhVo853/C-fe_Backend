@@ -16,6 +16,7 @@ class MenuController extends Controller
     }
     public function Menu($id)
     {
+
         $result = $this->MenuServices->XemMenu();
         $data = [];
         foreach ($result as $item) {
