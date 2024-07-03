@@ -88,4 +88,20 @@ class YeuCauServices
             ->where('noi_dung', 'LIKE', '%Thanh Toán%')
             ->update(['noi_dung' => $noiDung]);
     }
+
+    public function TimYeuCauMoiBan(int $dat_mon_id)
+    {
+        $noidungyeucau=DB::table('yeu_cau as yc')
+        ->join('dat_mon as dm', 'dm.id', 'yc.dat_mon_id')
+        ->join('ban as b', 'b.id', 'dm.ban_id')
+        ->select(
+            'yc.id as yeu_cau_id',
+            'b.ten_ban',
+            'yc.noi_dung',
+            'yc.trang_thai',
+            'yc.created_at as thoi_gian'
+        )
+            ->where('dat_mon_id',$dat_mon_id)->get();
+        return $noidungyeucau;
+    }
 }

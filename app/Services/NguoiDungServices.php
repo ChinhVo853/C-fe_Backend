@@ -52,4 +52,16 @@ class NguoiDungServices
             ->where('email', '=', $email)
             ->update(['password' => Hash::make($password)]);
     }
+    
+    public function Timnguoidung (int $id)
+    {
+        $data=DB::table('nguoi_dung')->where('id', '=', $id)->select('id')->first();
+        return $data->id;
+    }
+    public function Capnhatthongtinnguoidung(int $id,string $ho_ten, string $so_dien_thoai)
+    {
+        DB::table('nguoi_dung')
+            ->where('id', '=', $id)
+            ->update(['ho_ten' => $ho_ten,'so_dien_thoai'=>$so_dien_thoai]);
+    }
 }

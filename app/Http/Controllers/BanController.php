@@ -44,4 +44,37 @@ class BanController extends Controller
             'message' => 'Thành công',
         ], 200);
     }
+
+    public function Them(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ten_ban' => 'required|string|max:100',
+
+        ], [
+            'ten_ban.required' => 'Vui lòng nhập tên bàn',
+            'ten_ban.string' => 'Tên bàn phải là chữ a-z hoặc 0-9',
+            'ten_ban.max' => 'Nhiều nhất 100 ký tự',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $tenBan = $this->sizeServices->TimTenBan($request->ten_ban);
+
+        if (isset($tenBan)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Bàn đã tồn tại"
+            ], 422);
+        };
+
+
+        $this->BanServices->ThemBan($request->ten_ban);
+        return response([
+            'message' => "thành công",
+        ]);
+    }
 }

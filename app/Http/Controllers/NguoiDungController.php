@@ -155,13 +155,13 @@ class NguoiDungController extends Controller
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|max:100',
         ], [
-            'email.required' => 'vui lòng nhập email',
-            'email.string' => 'Email loại phải là chữ a-z hoặc 0-9',
+            'email.required' => 'Vui lòng nhập email',
+            'email.string' => 'Email phải là chữ a-z hoặc 0-9',
             'email.email' => 'Email không đúng định dạng',
             'email.max' => 'nhiều nhất 100 ký tự',
             'password.required' => 'vui lòng nhập mật khẩu',
             'password.string' => 'Mật khẩu phải là chữ a-z hoặc 0-9',
-            'password.max' => 'nhiều nhất 100 ký tự',
+            'password.max' => 'Nhiều nhất 100 ký tự',
         ]);
 
         if ($validator->fails()) {
@@ -177,4 +177,33 @@ class NguoiDungController extends Controller
             'message' => 'thanh cong',
         ], 200);
     }
+    public function Capnhatthongtin (Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ho_ten' => 'required|string|max:100',
+            'so_dien_thoai' => 'required|string|max:10',
+            'id' => 'required|integer',
+        ], [
+            'ho_ten.required' => 'vui lòng nhập họ tên',
+            'ho_ten.string' => 'Họ tên phải là chữ a-z hoặc 0-9',
+            'ho_ten.max' => 'Nhiều nhất 100 ký tự',
+            'so_dien_thoai.required' => 'Vui lòng nhập số điện thoại',
+            'so_dien_thoai.string' => 'Số điện thoại phải là chữ a-z hoặc 0-9',
+            'so_dien_thoai.max' => 'Nhiều nhất 10 ký tự',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $id_nguoidung=$this->NguoiDungServices->Timnguoidung($request->id);
+        $this->NguoiDungServices->Capnhatthongtinnguoidung($id_nguoidung,$request->ho_ten,$request->so_dien_thoai);
+        return response()->json([
+            'message' => 'thanh cong',
+        ], 200);
+    }
+
+    
 }

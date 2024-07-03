@@ -97,4 +97,13 @@ class YeuCauConTRoller extends Controller
 
         ], 200);
     }
+    public function Laydanhsachyeucautungban ($id)
+    {
+        $data= $this->YeuCauServices->TimYeuCauMoiBan($id);
+
+        return response()->json([
+            'message' => 'thanh cong',
+            'data'=> $data
+        ], 200);
+    }
 }

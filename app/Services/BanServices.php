@@ -27,4 +27,15 @@ class BanServices
             ->where('id', $id)
             ->delete();
     }
+    public function TimTenBan(string $ten_ban)
+    {
+        $data = DB::table('ban')->select('ten_ban')
+            ->where('ten_ban', '=', $ten_ban)->first();
+        return ($data);
+    }
+    public function ThemBan(string $ten_ban)
+    {
+        DB::table('ban')
+            ->insert(['ten_ban' => $ten_ban]);
+    }
 }

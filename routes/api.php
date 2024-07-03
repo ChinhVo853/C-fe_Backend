@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // nguoi dung
 
+
 Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');
 Route::post('/Logout', [NguoiDungController::class, 'logout'])->middleware('api');
 Route::get('/login', [NguoiDungController::class, 'showLoginForm'])->name('login');
@@ -38,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('Ban')->group(function () {
         Route::get('/Xem', [BanController::class, 'DanhSachBan']);
         Route::post('/Xoa', [BanController::class, 'Xoa']);
+        Route::post('/Them', [BanController::class, 'Them']);
     });
     Route::prefix('Loai')->group(function () {
         Route::post('/Them', [LoaiController::class, 'Them']);
@@ -58,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/Xoa', [NguoiDungController::class, 'XoaTaiKhoan']);
         Route::post('/Them', [NguoiDungController::class, 'TaoTaiKhoan']);
         Route::post('/Doi-Mat-Khau', [NguoiDungController::class, 'DoiMatKhau']);
+        Route::post('/Capnhatthongtin', [NguoiDungController::class, 'Capnhatthongtin'])->middleware('api');
     });
 
 
@@ -70,6 +73,11 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/Trang-Thai', [SanPhamController::class, 'CapNhatTrangThai']);
         Route::post('/Xoa', [SanPhamController::class, 'Xoa']);
     });
+    Route::prefix('Yeu-Cau')->group(function () {
+        Route::get('/Laydanhsachyeucautungban/{id}', [YeuCauConTRoller::class, 'Laydanhsachyeucautungban'])->middleware('api');
+
+    });
+
 });
 
 Route::get('/Menu/{id}', [MenuController::class, 'Menu']);
