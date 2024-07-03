@@ -45,6 +45,8 @@ class NguoiDungController extends Controller
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+        // Get the authenticated user
+        $user = auth('api')->user();
         // Get the TTL (Time To Live) from the JWT configuration
         $ttl = config('jwt.ttl');
 
@@ -52,7 +54,8 @@ class NguoiDungController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $ttl * 60 // Time-to-live in seconds
+            'expires_in' => $ttl * 60, // Time-to-live in seconds
+            'quyen_id' => $user->quyen_id // Add the quyen_id to the response
         ]);
     }
 
@@ -177,7 +180,7 @@ class NguoiDungController extends Controller
             'message' => 'thanh cong',
         ], 200);
     }
-    public function Capnhatthongtin (Request $request)
+    public function Capnhatthongtin(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'ho_ten' => 'required|string|max:100',
@@ -198,13 +201,11 @@ class NguoiDungController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        $id_nguoidung=$this->NguoiDungServices->Timnguoidung($request->id);
-        $this->NguoiDungServices->Capnhatthongtinnguoidung($id_nguoidung,$request->ho_ten,$request->so_dien_thoai);
+        $id_nguoidung = $this->NguoiDungServices->Timnguoidung($request->id);
+        $this->NguoiDungServices->Capnhatthongtinnguoidung($id_nguoidung, $request->ho_ten, $request->so_dien_thoai);
         return response()->json([
             'message' => 'thanh cong',
         ], 200);
     }
-
-    
 }
 /** */

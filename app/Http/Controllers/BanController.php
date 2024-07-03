@@ -62,7 +62,7 @@ class BanController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        $tenBan = $this->sizeServices->TimTenBan($request->ten_ban);
+        $tenBan = $this->BanServices->TimTenBan($request->ten_ban);
 
         if (isset($tenBan)) {
             return response()->json([
