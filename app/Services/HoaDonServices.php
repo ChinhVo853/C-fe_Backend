@@ -23,6 +23,8 @@ class HoaDonServices
             ->join('size as s', 'm.size_id', 's.id')
             ->where('hoa_don_id', $id)
             ->select([
+                'ct.id as chiTietID',
+                'ct.xac_nhan',
                 'm.id as id',
                 'm.ten as tenMon',
                 'l.ten as tenLoai',
@@ -38,7 +40,16 @@ class HoaDonServices
             ])->get();
         return $data;
     }
-    public function TimVaTaoHoaDon($id)
+    public function TimHoaDon(int $id, int $datMon)
+    {
+        $tim = DB::table('hoa_don')
+            ->select('id')
+            ->where('ban_id', $id)
+            ->where('dat_mon_id', $datMon)
+            ->first();
+        return $tim->id;
+    }
+    public function TimVaTaoHoaDon(int $id, int $ban)
     {
         $tim = DB::table('hoa_don')
             ->select('id')
@@ -49,7 +60,8 @@ class HoaDonServices
             $data = DB::table('hoa_don')
                 ->insertGetId([
                     'dat_mon_id' => $id,
-                    'tong_tien' => 0
+                    'tong_tien' => 0,
+                    'ban_id' => $ban
                 ]);
             return $data;
         }
@@ -80,6 +92,7 @@ class HoaDonServices
                 'hoa_don_id' => $hoaDonID,
                 'mon_an_id' => $monAnID,
                 'so_luong' => $soLuong,
+                'xac_nhan' => 0,
                 'thanh_tien' => $thanhTien
             ]);
     }
@@ -122,12 +135,21 @@ class HoaDonServices
     public function LayDSHoaDon(int $id)
     {
         $data = DB::table('hoa_don')
-        ->where('ban_id', $id)
-        ->select([
-            'id', 
-            'tong_tien',
-            'created_at',
-        ])->get();
+            ->where('ban_id', $id)
+            ->select([
+                'id',
+                'tong_tien',
+                'created_at',
+            ])->get();
         return $data;
+    }
+
+    public function ChiTietXacNhan(int $id)
+    {
+        DB::table('chi_tiet_hoa_don')
+            ->where('id', $id)
+            ->update([
+                'xac_nhan' => 1
+            ]);
     }
 }

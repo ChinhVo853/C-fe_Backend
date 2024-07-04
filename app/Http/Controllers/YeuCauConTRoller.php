@@ -21,10 +21,11 @@ class YeuCauConTRoller extends Controller
         if (!isset($datMonID)) {
             return response()->json([
                 'message' => 'Không có ',
-
             ], 200);
         }
-        $data = $this->YeuCauServices->XemDS($datMonID->id);
+
+        $data = $this->YeuCauServices->XemDS($datMonID);
+
         return response()->json([
             'message' => 'thanh cong',
             'data' => $data
@@ -70,8 +71,7 @@ class YeuCauConTRoller extends Controller
             if ($request->yeuCau == "Thanh toán") {
                 $this->YeuCauServices->SuaThanhToan($request->noiDung);
                 return response()->json([
-                    'message' => 'thanh cong',
-
+                    'message' => 'thanh con1g',
                 ], 200);
             }
             return response()->json([
@@ -82,28 +82,53 @@ class YeuCauConTRoller extends Controller
         if ($request->yeuCau == "Thanh toán") {
             $this->YeuCauServices->DoiThanhToan($request->ban);
         }
-        $this->YeuCauServices->Tao($datMonID->id, $request->noiDung);
+        $this->YeuCauServices->Tao($datMonID, $request->noiDung);
         return response()->json([
             'message' => 'thanh cong',
 
         ], 200);
     }
 
-    public function XacNhanYeuCau($id)
+    public function XacNhanYeuCau(Request $request)
     {
-        $this->YeuCauServices->XacNhan($id);
+        $data = [];
+
+        // Kiểm tra xem id và ban có tồn tại không
+        if (!$request->has('id') || !$request->has('ban')) {
+            return response()->json([
+                'message' => 'Dữ liệu không hợp lệ',
+            ], 400);
+        }
+
+        $yeuCau = $this->YeuCauServices->timYeuCau($request->id);
+
+        if (strpos($yeuCau, 'Gọi thanh toán: ') !== false) {
+            $this->YeuCauServices->DonBan($request->ban);
+
+            $datMonID = $this->YeuCauServices->TimDatMon($request->ban);
+            $timHoaDon = $this->YeuCauServices->TimHoaDon($request->ban, $datMonID);
+
+            $this->YeuCauServices->XoaChiTiet($timHoaDon);
+
+            $data = $this->YeuCauServices->TimCTHoaDon($timHoaDon);
+        }
+
+        $this->YeuCauServices->XacNhan($request->id);
+
         return response()->json([
             'message' => 'thanh cong',
-
+            'data' => $data
         ], 200);
     }
-    public function Laydanhsachyeucautungban ($id)
+
+    public function Laydanhsachyeucautungban($id)
     {
-        $data= $this->YeuCauServices->TimYeuCauMoiBan($id);
+        $data = $this->YeuCauServices->TimYeuCauMoiBan($id);
 
         return response()->json([
             'message' => 'thanh cong',
-            'data'=> $data
+            'data' => $data
         ], 200);
     }
-}/** */
+}
+/** */
