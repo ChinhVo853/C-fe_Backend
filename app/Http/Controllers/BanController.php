@@ -23,6 +23,24 @@ class BanController extends Controller
         ], 200);
     }
 
+    public function DSTrangThaiBan($id)
+    {
+        $data = $this->BanServices->DSTrangThai($id);
+        return response()->json([
+            'message' =>  'Thành công',
+            'data' => $data
+        ], 200);
+    }
+    public function LamTrong($id)
+    {
+        $data = $this->BanServices->LamBanTrong($id);
+        return response()->json([
+            'message' =>  'Thành công',
+            'data' => $data
+        ], 200);
+    }
+
+
     public function Xoa(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -77,5 +95,48 @@ class BanController extends Controller
             'message' => "thành công",
         ]);
         /**/
+    }
+
+    public function Sua(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ten_ban' => 'required|string|max:100',
+
+        ], [
+            'ten_ban.required' => 'Vui lòng nhập tên bàn',
+            'ten_ban.string' => 'Tên bàn phải là chữ a-z hoặc 0-9',
+            'ten_ban.max' => 'Nhiều nhất 100 ký tự',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $tenBan = $this->BanServices->TimTenBan($request->ten_ban);
+
+        if (isset($tenBan)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Bàn đã tồn tại"
+            ], 422);
+        };
+
+
+        $this->BanServices->SuaBan($request->ten_ban, $request->id);
+        return response([
+            'message' => "thành công",
+        ]);
+        /**/
+    }
+
+    public function Tim($id)
+    {
+        $data = $this->BanServices->TimBan($id);
+        return response([
+            'message' => "thành công",
+            'data' => $data
+        ]);
     }
 }
