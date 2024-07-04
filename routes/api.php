@@ -37,9 +37,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('me', [NguoiDungController::class, 'me']);
 
     Route::prefix('Ban')->group(function () {
+        Route::get('/Xem/{id}', [BanController::class, 'DSTrangThaiBan']);
+        Route::get('/Tim/{id}', [BanController::class, 'Tim']);
+        Route::post('/Sua', [BanController::class, 'Sua']);
+
+        Route::get('/Lam-Trong/{id}', [BanController::class, 'LamTrong']);
         Route::get('/Xem', [BanController::class, 'DanhSachBan']);
         Route::post('/Xoa', [BanController::class, 'Xoa']);
         Route::post('/Them', [BanController::class, 'Them']);
+        
     });
     Route::prefix('Loai')->group(function () {
         Route::post('/Them', [LoaiController::class, 'Them']);
@@ -75,9 +81,7 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::prefix('Yeu-Cau')->group(function () {
         Route::get('/Laydanhsachyeucautungban/{id}', [YeuCauConTRoller::class, 'Laydanhsachyeucautungban'])->middleware('api');
-
     });
-
 });
 
 Route::get('/Menu/{id}', [MenuController::class, 'Menu']);
@@ -103,4 +107,6 @@ Route::prefix('Yeu-Cau')->group(function () {
 Route::prefix('Hoa-Don')->group(function () {
     Route::get('/Goi-Mon/{ban}', [HoaDonController::class, 'GoiMon']);
     Route::get('/Danh-Sach-Chi-Tiet/{ban}', [HoaDonController::class, 'DanhSachChiTiet']);
+    Route::get('/DanhSachHoaDon/{ban}', [HoaDonController::class, 'DanhSachHoaDon']);
+
 });

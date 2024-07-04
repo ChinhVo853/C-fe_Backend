@@ -48,6 +48,9 @@ return new class extends Migration
         Schema::table('hoa_don', function (Blueprint $table) {
             $table->foreign('dat_mon_id')->references('id')->on('dat_mon');
         });
+        Schema::table('hoa_don', function (Blueprint $table) {
+            $table->foreign('ban_id')->references('id')->on('ban');
+        });
 
         Schema::table('chi_tiet_hoa_don', function (Blueprint $table) {
             $table->foreign('hoa_don_id')->references('id')->on('hoa_don');

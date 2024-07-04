@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('hoa_don', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ban_id');
             $table->foreignId('dat_mon_id');
             $table->double('tong_tien');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
