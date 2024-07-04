@@ -118,4 +118,16 @@ class HoaDonServices
             ->first();
         return $data->trang_thai_id;
     }
+
+    public function LayDSHoaDon(int $id)
+    {
+        $data = DB::table('hoa_don')
+        ->where('ban_id', $id)
+        ->select([
+            'id', 
+            'tong_tien',
+            'created_at',
+        ])->get();
+        return $data;
+    }
 }

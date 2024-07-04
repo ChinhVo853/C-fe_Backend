@@ -47,4 +47,13 @@ class HoaDonController extends Controller
             'data' => $data
         ]);
     }
+
+    public function DanhSachHoaDon($ban)
+    {
+        $data = $this->HoaDonServices->LayDSHoaDon($ban);
+        return response()->json([
+            'message' => 'Thành công',
+            'data' => $data
+        ]);
+    }
 }
