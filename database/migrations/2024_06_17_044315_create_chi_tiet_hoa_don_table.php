@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('hoa_don_id');
             $table->foreignId('mon_an_id');
             $table->integer('so_luong');
+            $table->integer('xac_nhan');
             $table->double('thanh_tien');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
