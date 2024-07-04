@@ -21,6 +21,7 @@ class MenuServices
                 'm.anh',
                 'm.trang_thai'
             )
+            ->orderBy('l.id', 'asc')
             ->get();
         return $data;
     }

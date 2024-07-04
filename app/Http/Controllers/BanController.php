@@ -139,4 +139,13 @@ class BanController extends Controller
             'data' => $data
         ]);
     }
+
+    public function KiemTra($id)
+    {
+        $data = $this->BanServices->KiemTraBan($id);
+        return response([
+            'message' => "thành công",
+            'data' => $data
+        ]);
+    }
 }

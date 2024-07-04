@@ -90,7 +90,9 @@ class SanPhamServices
                 'm.trang_thai',
                 's.id as sizeID',
                 'l.id as LoaiID'
-            ])->get();
+            ])
+            ->orderBy('l.id', 'asc')
+            ->get();
         return $data;
     }
 

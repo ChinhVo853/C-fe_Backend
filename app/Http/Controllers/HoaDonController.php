@@ -22,7 +22,7 @@ class HoaDonController extends Controller
             ], 422);
         }
         $datMonID = $this->HoaDonServices->LayIDDatMon($ban);
-        $taoHoaDon = $this->HoaDonServices->TimVaTaoHoaDon($datMonID->id);
+        $taoHoaDon = $this->HoaDonServices->TimVaTaoHoaDon($datMonID->id, $ban);
         $dsChiTietDatMon = $this->HoaDonServices->LayCTDatMon($datMonID->id);
         $tongTien = $this->HoaDonServices->LayTiongTien($taoHoaDon);
         foreach ($dsChiTietDatMon as $item) {
@@ -41,7 +41,8 @@ class HoaDonController extends Controller
     public function DanhSachChiTiet($ban)
     {
         $datMonID = $this->HoaDonServices->LayIDDatMon($ban);
-        $data = $this->HoaDonServices->LayDSCThoaDon($datMonID->id);
+        $hoaDon = $this->HoaDonServices->TimHoaDon($ban, $datMonID->id);
+        $data = $this->HoaDonServices->LayDSCThoaDon($hoaDon);
         return response()->json([
             'message' => 'Thành công',
             'data' => $data
@@ -54,6 +55,15 @@ class HoaDonController extends Controller
         return response()->json([
             'message' => 'Thành công',
             'data' => $data
+        ]);
+    }
+
+
+    public function XacNhanChiTiet($id)
+    {
+        $this->HoaDonServices->ChiTietXacNhan($id);
+        return response()->json([
+            'message' => 'Thành công',
         ]);
     }
 }

@@ -45,7 +45,6 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/Xem', [BanController::class, 'DanhSachBan']);
         Route::post('/Xoa', [BanController::class, 'Xoa']);
         Route::post('/Them', [BanController::class, 'Them']);
-        
     });
     Route::prefix('Loai')->group(function () {
         Route::post('/Them', [LoaiController::class, 'Them']);
@@ -101,12 +100,18 @@ Route::prefix('Yeu-Cau')->group(function () {
     Route::get('/Xem/{ban}', [YeuCauConTRoller::class, 'XemDS']);
     Route::get('/Xem-Tat-Ca', [YeuCauConTRoller::class, 'XemYeuCau']);
     Route::post('/Tao', [YeuCauConTRoller::class, 'TaoYeuCau']);
-    Route::get('/Xac-Nhan/{id}', [YeuCauConTRoller::class, 'XacNhanYeuCau']);
+    Route::post('/Xac-Nhan', [YeuCauController::class, 'XacNhanYeuCau']);
+    Route::get('/Xac-Nhan', [YeuCauController::class, 'XacNhanYeuCau']);
 });
 
 Route::prefix('Hoa-Don')->group(function () {
+    Route::get('/Xac-Nhan-Chi-Tiet/{id}', [HoaDonController::class, 'XacNhanChiTiet']);
+
+
     Route::get('/Goi-Mon/{ban}', [HoaDonController::class, 'GoiMon']);
     Route::get('/Danh-Sach-Chi-Tiet/{ban}', [HoaDonController::class, 'DanhSachChiTiet']);
     Route::get('/DanhSachHoaDon/{ban}', [HoaDonController::class, 'DanhSachHoaDon']);
-
 });
+
+
+Route::get('/Kiem-Tra-Ban/{id}', [BanController::class, 'KiemTra']);
