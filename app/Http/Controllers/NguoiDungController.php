@@ -157,14 +157,18 @@ class NguoiDungController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|max:100',
+            'NewPassword' => 'required|string|max:100',
         ], [
             'email.required' => 'Vui lòng nhập email',
             'email.string' => 'Email phải là chữ a-z hoặc 0-9',
             'email.email' => 'Email không đúng định dạng',
             'email.max' => 'nhiều nhất 100 ký tự',
-            'password.required' => 'vui lòng nhập mật khẩu',
-            'password.string' => 'Mật khẩu phải là chữ a-z hoặc 0-9',
-            'password.max' => 'Nhiều nhất 100 ký tự',
+            'Password.required' => 'vui lòng nhập mật khẩu cũ',
+            'Password.string' => 'Mật khẩu phải là chữ a-z hoặc 0-9',
+            'Password.max' => 'Nhiều nhất 100 ký tự',
+            'NewPassword.required' => 'vui lòng nhập mật khẩu mới',
+            'NewPassword.string' => 'Mật khẩu phải là chữ a-z hoặc 0-9',
+            'NewPassword.max' => 'Nhiều nhất 100 ký tự',
         ]);
 
         if ($validator->fails()) {
@@ -173,8 +177,14 @@ class NguoiDungController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-
-        $this->NguoiDungServices->MatKhau($request->password, $request->email);
+        $credentials = request(['email', 'password']);
+        if (!$token = auth('api')->attempt($credentials)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Sai mật khẩu"
+            ], 422);
+        }
+        $this->NguoiDungServices->MatKhau($request->NewPassword, $request->email);
 
         return response()->json([
             'message' => 'thanh cong',

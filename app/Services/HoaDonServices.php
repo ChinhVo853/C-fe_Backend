@@ -32,12 +32,14 @@ class HoaDonServices
                 's.ten as tenSize',
                 'm.gia',
                 'm.anh',
-                'm.so_luong_danh_gia',
+                'ct.thanh_tien',
                 'm.trang_thai',
                 's.id as sizeID',
                 'l.id as LoaiID',
                 'ct.so_luong',
-                'hd.tong_tien'
+                'hd.tong_tien',
+                'hd.created_at',
+                'hd.updated_at'
             ])->get();
         return $data;
     }
