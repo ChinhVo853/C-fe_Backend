@@ -86,7 +86,6 @@ class SanPhamServices
                 's.ten as tenSize',
                 'm.gia',
                 'm.anh',
-                'm.so_luong_danh_gia',
                 'm.trang_thai',
                 's.id as sizeID',
                 'l.id as LoaiID'
@@ -151,5 +150,31 @@ class SanPhamServices
             return 1;
         }
         return 0;
+    }
+
+    public function Tim($tim)
+    {
+        $data = DB::table('mon_an as ma')
+            ->join('loai as l', 'ma.loai_id', '=', 'l.id')
+            ->join('size as s', 'ma.size_id', '=', 's.id')
+            ->select([
+                'ma.id as id',
+                'ma.ten as tenMon',
+                'l.ten as tenLoai',
+                's.ten as tenSize',
+                'ma.gia',
+                'ma.anh',
+                'ma.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID'
+            ])
+            ->where(function ($query) use ($tim) {
+                $query->whereRaw("BINARY ma.ten LIKE '%{$tim}%'")
+                    ->orWhereRaw("BINARY l.ten LIKE '%{$tim}%'");
+            })
+            ->orderBy('l.id', 'asc')
+            ->get();
+
+        return $data;
     }
 }

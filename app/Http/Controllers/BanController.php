@@ -17,9 +17,24 @@ class BanController extends Controller
     public function DanhSachBan()
     {
         $data = $this->BanServices->XemDS();
+        //  dd($data);
+        foreach ($data as $item) {
+
+            $tam = 0;
+            $datMon = $this->BanServices->TimDatMon($item->ban_id);
+            $yeuCAu = $this->BanServices->TimYeuCau($datMon->id);
+
+            foreach ($yeuCAu as $item2) {
+                if ($item2->trang_thai == 0) {
+                    $tam++;
+                }
+            }
+            $item->yeuCau = $tam;
+        }
+
         return response()->json([
-            'message' =>  'Thành công',
-            'data' => $data
+            'message' => 'Thành công',
+            'data' => $data,
         ], 200);
     }
 
@@ -143,6 +158,15 @@ class BanController extends Controller
     public function KiemTra($id)
     {
         $data = $this->BanServices->KiemTraBan($id);
+        return response([
+            'message' => "thành công",
+            'data' => $data
+        ]);
+    }
+
+    public function TimMa($id)
+    {
+        $data = $this->BanServices->TimMaBan($id);
         return response([
             'message' => "thành công",
             'data' => $data

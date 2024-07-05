@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('Ban')->group(function () {
         Route::get('/Xem/{id}', [BanController::class, 'DSTrangThaiBan']);
         Route::get('/Tim/{id}', [BanController::class, 'Tim']);
+
         Route::post('/Sua', [BanController::class, 'Sua']);
 
         Route::get('/Lam-Trong/{id}', [BanController::class, 'LamTrong']);
@@ -71,6 +72,7 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::prefix('San-Pham')->group(function () {
+
         Route::post('/Them', [SanPhamController::class, 'Them']);
         Route::post('/Them-Anh', [SanPhamController::class, 'ThemAnh']);
         Route::get('/Xem', [SanPhamController::class, 'Xem']);
@@ -110,8 +112,10 @@ Route::prefix('Hoa-Don')->group(function () {
 
     Route::get('/Goi-Mon/{ban}', [HoaDonController::class, 'GoiMon']);
     Route::get('/Danh-Sach-Chi-Tiet/{ban}', [HoaDonController::class, 'DanhSachChiTiet']);
+    Route::get('/Danh-Sach-Chi-Tiet-theo-ma/{ban}', [HoaDonController::class, 'ChiTietHoaDonTheoMa']);
     Route::get('/DanhSachHoaDon/{ban}', [HoaDonController::class, 'DanhSachHoaDon']);
 });
 
-
+Route::post('/San-Pham/Tim', [SanPhamController::class, 'TimMon']);
 Route::get('/Kiem-Tra-Ban/{id}', [BanController::class, 'KiemTra']);
+Route::get('/Ban/Tim-Ma/{id}', [BanController::class, 'TimMa']);

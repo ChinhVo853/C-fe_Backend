@@ -11,6 +11,7 @@ class HoaDonServices
         $data = DB::table('dat_mon')
             ->where('ban_id', $ban)
             ->select('id')
+            ->orderBy('id', 'desc')
             ->first();
         return $data;
     }
@@ -46,8 +47,10 @@ class HoaDonServices
             ->select('id')
             ->where('ban_id', $id)
             ->where('dat_mon_id', $datMon)
+            ->orderBy('id', 'desc')
+
             ->first();
-        return $tim->id;
+        return $tim;
     }
     public function TimVaTaoHoaDon(int $id, int $ban)
     {
