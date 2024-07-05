@@ -214,4 +214,25 @@ class SanPhamController extends Controller
             'message' => 'thanh cong'
         ], 200);
     }
+
+    public function TimMon(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tim' => 'required',
+        ], [
+            'tim.required' => 'Vui lòng nhập món muốn tìm',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $data = $this->sanPhamServices->Tim($request->tim);
+        return response()->json([
+            'message' => 'thanh cong',
+            'data' => $data
+        ], 200);
+    }
 }

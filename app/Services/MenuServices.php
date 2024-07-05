@@ -96,6 +96,7 @@ class MenuServices
         $data = DB::table('dat_mon')
             ->select('id')
             ->where('ban_id', '=', $id)
+            ->orderBy('id', 'desc')
             ->first();
         return $data;
     }

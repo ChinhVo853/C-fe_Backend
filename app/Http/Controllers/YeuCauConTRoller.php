@@ -71,7 +71,7 @@ class YeuCauConTRoller extends Controller
             if ($request->yeuCau == "Thanh toán") {
                 $this->YeuCauServices->SuaThanhToan($request->noiDung);
                 return response()->json([
-                    'message' => 'thanh con1g',
+                    'message' => 'thanh cong',
                 ], 200);
             }
             return response()->json([

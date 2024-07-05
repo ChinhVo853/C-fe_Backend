@@ -61,6 +61,7 @@ class YeuCauServices
         $data = DB::table('dat_mon')
             ->select('id')
             ->where('ban_id', $banID)
+            ->orderBy('id', 'desc')
             ->first();
         return $data->id;
     }
@@ -147,6 +148,31 @@ class YeuCauServices
 
     public function TimCTHoaDon(int $id)
     {
+
+
+        $data = DB::table('chi_tiet_hoa_don as ct')
+            ->join('mon_an as m', 'ct.mon_an_id', 'm.id')
+            ->join('hoa_don as hd', 'ct.hoa_don_id', 'hd.id')
+            ->where('ct.hoa_don_id', $id)
+            ->where('xac_nhan', 1)
+            ->select(
+                'ct.id as chiTietID',
+                'm.ten as tenMon',
+                'ct.thanh_tien'
+            )
+            ->get();
+
+        // Tính lại tổng tiền từ ct.thanh_tien
+        $tongTien = $data->sum('thanh_tien');
+
+        // Chuyển đổi dữ liệu thành mảng để thêm tổng tiền
+        $data = $data->toArray();
+        DB::table('hoa_don')
+            ->where('id', $id)
+            ->update([
+                'tong_tien' => $tongTien
+            ]);
+
         $data = DB::table('chi_tiet_hoa_don as ct')
             ->join('mon_an as m', 'ct.mon_an_id', 'm.id')
             ->join('hoa_don as hd', 'ct.hoa_don_id', 'hd.id')
@@ -158,6 +184,7 @@ class YeuCauServices
                 'hd.tong_tien',
             )
             ->get();
+
         return $data;
     }
 }
