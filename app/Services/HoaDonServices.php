@@ -105,7 +105,7 @@ class HoaDonServices
     public function capNhatTongTien(int $hoaDonID, float $tongTien)
     {
         DB::table('hoa_don')
-            ->select('id', $hoaDonID)
+            ->where('id', $hoaDonID)
             ->update([
                 'tong_tien' => $tongTien
             ]);

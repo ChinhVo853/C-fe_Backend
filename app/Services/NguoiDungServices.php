@@ -64,5 +64,11 @@ class NguoiDungServices
             ->where('id', '=', $id)
             ->update(['ho_ten' => $ho_ten, 'so_dien_thoai' => $so_dien_thoai]);
     }
+    public function Timemailnguoidung(string $email)
+    {
+        $data = DB::table('nguoi_dung')->where('email', '=', $email)->select('ho_ten','email')->first();
+        return $data;
+    }
+
 }
 /**/

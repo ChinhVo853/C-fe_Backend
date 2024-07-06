@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // nguoi dung
+Route::post('/Tranglaymatkhau', [NguoiDungController::class, 'LayLaiMatKhau']);
 
 /**/
 Route::post('/Login', [NguoiDungController::class, 'login'])->middleware('api');

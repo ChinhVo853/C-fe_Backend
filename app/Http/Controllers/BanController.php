@@ -17,19 +17,34 @@ class BanController extends Controller
     public function DanhSachBan()
     {
         $data = $this->BanServices->XemDS();
+
         //  dd($data);
         foreach ($data as $item) {
-
+            
             $tam = 0;
+            $tam2=0;
             $datMon = $this->BanServices->TimDatMon($item->ban_id);
-            $yeuCAu = $this->BanServices->TimYeuCau($datMon->id);
-
-            foreach ($yeuCAu as $item2) {
-                if ($item2->trang_thai == 0) {
-                    $tam++;
+            if (isset($datMon)) {
+                $hoadon=$this->BanServices->TimHoaDon($datMon->id);
+                if (isset($hoadon)) {
+                    foreach ($hoadon as $item2) {
+                        if ($item2->xac_nhan == 0) {
+                            $tam2++;
+                        }
+                    }
+                    $item->hd = $tam2;
+                }
+                $yeuCAu = $this->BanServices->TimYeuCau($datMon->id);
+                
+                if (isset($yeuCAu)) {
+                    foreach ($yeuCAu as $item2) {
+                        if ($item2->trang_thai == 0) {
+                            $tam++;
+                        }
+                    }
+                    $item->yeuCau = $tam;
                 }
             }
-            $item->yeuCau = $tam;
         }
 
         return response()->json([

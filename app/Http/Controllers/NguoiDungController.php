@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\models\NguoiDung;
 use App\Services\NguoiDungServices;
-
+use Mail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -217,5 +218,51 @@ class NguoiDungController extends Controller
             'message' => 'thanh cong',
         ], 200);
     }
+
+    public function LayLaiMatKhau(Request $request)
+{
+    // Kiểm tra dữ liệu đầu vào
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email', // Thêm điều kiện kiểm tra định dạng email
+    ], [
+        'email.required' => 'Vui lòng nhập Email',
+        'email.email' => 'Email không hợp lệ', // Thêm thông báo lỗi cho email không hợp lệ
+    ]);
+
+    // Nếu dữ liệu không hợp lệ, trả về lỗi
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 'error',
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    // Tìm kiếm người dùng theo email
+    $khachHang = $this->NguoiDungServices->Timemailnguoidung($request->email);
+    // Nếu không tìm thấy người dùng, trả về lỗi
+    if (!isset($khachHang)) {
+        return response()->json([
+            'status' => 'error',
+            'errors' => 'Không tìm thấy người dùng với địa chỉ email này.'
+        ], 422);
+    }
+    
+    // Tạo mật khẩu mới
+    $matKhauMoi = Str::random(6);
+
+    // Cập nhật mật khẩu mới cho người dùng
+    $this->NguoiDungServices->MatKhau($matKhauMoi, $request->email);
+    // Gửi email xác nhận mật khẩu mới
+    Mail::send('EMAIL.gui-mail', compact('khachHang', 'matKhauMoi'), function ($email) use ($khachHang) {
+        $email->to($khachHang->email, $khachHang->ho_ten)
+              ->subject('Thông tin mật khẩu mới'); // Thêm tiêu đề cho email
+    });
+
+    // Trả về thông báo thành công
+    return response()->json([
+        'message' => 'Thành công'
+    ]);
+}
+
 }
 /** */

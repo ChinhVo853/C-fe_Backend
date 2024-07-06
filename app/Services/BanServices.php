@@ -116,6 +116,7 @@ class BanServices
         $data = DB::table('dat_mon as dm')
             ->join('ban as b', 'b.id', 'dm.ban_id')
             ->where('ban_id', $ban)
+            ->orderby('dm.id','desc')
             ->select(
                 'dm.id',
                 'b.ten_ban'
@@ -147,6 +148,16 @@ class BanServices
         $data = DB::table('yeu_cau')
             ->where('dat_mon_id', $datMon)
             ->select('trang_thai')
+            ->get();
+        return $data;
+    }
+    public function TimHoaDon(int $datMon)
+    {
+        $data = DB::table('hoa_don as hd')
+        
+            ->where('dat_mon_id', $datMon)
+            ->join('chi_tiet_hoa_don as cthd','cthd.hoa_don_id','hd.id')
+            ->select('xac_nhan')
             ->get();
         return $data;
     }
