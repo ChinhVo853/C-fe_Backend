@@ -65,6 +65,12 @@ class YeuCauConTRoller extends Controller
             ], 422);
         }
 
+        if ($request->noiDung == "Gọi nhân viên: undefined") {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Không được để trống"
+            ], 422);
+        }
         $datMonID = $this->YeuCauServices->TimDatMon($request->ban);
         $trangThaiBan = $this->YeuCauServices->KTTrangThaiBan($request->ban);
         if ($trangThaiBan->trang_thai_id == 3) {

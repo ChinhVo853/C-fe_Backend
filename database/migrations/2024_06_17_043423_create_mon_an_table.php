@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->string('ten', 100);
             $table->double('gia');
-            $table->integer('so_luong_danh_gia');
             $table->foreignId('loai_id');
             $table->foreignId('size_id');
             $table->string('anh', 100)->nullable();

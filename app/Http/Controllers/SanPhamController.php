@@ -50,10 +50,11 @@ class SanPhamController extends Controller
             }
 
 
-            if ($request->sizeDuyNhat) {
+            if ($request->sizeDuyNhat === true) {
+
                 $timMon = $this->sanPhamServices->TimMon($request->foodName, 1, $request->foodCategory);
 
-                if (isset($timMon)) {
+                if ($timMon->count() > 0) {
                     return response()->json([
                         'status' => 'error',
                         'errors' => "Món ăn đã tồn tại"
@@ -70,7 +71,7 @@ class SanPhamController extends Controller
             } else {
                 $timMon = $this->sanPhamServices->TimMon($request->foodName, $request->foodSize[$i], $request->foodCategory);
 
-                if ($timMon->count() > 1) {
+                if ($timMon->count() > 0) {
                     return response()->json([
                         'status' => 'error',
                         'errors' => "Món ăn đã tồn tại"
@@ -117,7 +118,7 @@ class SanPhamController extends Controller
         }
         $timMon = $this->sanPhamServices->TimMon($request->tenMon, $request->sizeID, $request->loaiID);
 
-        if ($timMon->count() > 1) {
+        if ($timMon->count() > 0) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Món ăn đã tồn tại"
@@ -137,7 +138,7 @@ class SanPhamController extends Controller
         }
 
 
-        $this->sanPhamServices->SuaMon($request->tenMon, $request->MonID, $request->gia, $request->trangThai);
+        $this->sanPhamServices->SuaMon($request->tenMon, $request->MonID, $request->gia);
         return response()->json([
             'status' => 'success',
             'message' => 'Thành công',

@@ -19,7 +19,7 @@ class SanPhamServices
                 'loai_id'     => $LoaiID,
                 'size_id'     => $sizeID,
                 'gia'         => $gia,
-                'so_luong_danh_gia'  => 0,
+
                 'trang_thai' => $trangThai
 
             ]);
@@ -51,7 +51,7 @@ class SanPhamServices
                 's.ten as tenSize',
                 'm.gia',
                 'm.anh',
-                'm.so_luong_danh_gia',
+
                 'm.trang_thai',
                 's.id as sizeID',
                 'l.id as LoaiID'
@@ -126,14 +126,14 @@ class SanPhamServices
     }
 
 
-    public function SuaMon(string $ten, int $id, float $gia, int $trangThai)
+    public function SuaMon(string $ten, int $id, float $gia)
     {
         DB::table('mon_an')
             ->where('id', $id)
             ->update([
                 'ten' => $ten,
                 'gia' => $gia,
-                'trang_thai' => $trangThai
+
             ]);
     }
 

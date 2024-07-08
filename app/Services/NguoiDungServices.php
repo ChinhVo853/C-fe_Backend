@@ -37,7 +37,9 @@ class NguoiDungServices
                 'nd.so_dien_thoai',
                 'email',
                 'q.ten as ten_quyen'
-            )->join('quyen as q', 'nd.quyen_id', '=', 'q.id')->get();
+            )->join('quyen as q', 'nd.quyen_id', '=', 'q.id')
+            ->where('nd.id', '>', 1)
+            ->get();
         return $data;
     }
 
@@ -66,9 +68,8 @@ class NguoiDungServices
     }
     public function Timemailnguoidung(string $email)
     {
-        $data = DB::table('nguoi_dung')->where('email', '=', $email)->select('ho_ten','email')->first();
+        $data = DB::table('nguoi_dung')->where('email', '=', $email)->select('ho_ten', 'email')->first();
         return $data;
     }
-
 }
 /**/
