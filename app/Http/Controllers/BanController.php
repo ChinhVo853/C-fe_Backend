@@ -61,14 +61,29 @@ class BanController extends Controller
             'data' => $data
         ], 200);
     }
-    public function LamTrong($id)
+    public function LamTrong(Request $request)
     {
-        $data = $this->BanServices->LamBanTrong($id);
+        $validator = Validator::make($request->all(), [
+            'dat_mon_id' => 'required',
+        ], [
+            'id.required' => 'Bàn đang trống',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        $data = $this->BanServices->LamBanTrong($request->ban);
+        $this->BanServices->LamBanTrong($request->dat_mon_id);
+        
         return response()->json([
             'message' =>  'Thành công',
             'data' => $data
         ], 200);
     }
+
 
 
     public function Xoa(Request $request)

@@ -43,7 +43,7 @@ Route::middleware('auth:api')->group(function () {
 
         Route::post('/Sua', [BanController::class, 'Sua']);
 
-        Route::get('/Lam-Trong/{id}', [BanController::class, 'LamTrong']);
+        Route::post('/Lam-Trong', [BanController::class, 'LamTrong']);
         Route::get('/Xem', [BanController::class, 'DanhSachBan']);
         Route::post('/Xoa', [BanController::class, 'Xoa']);
         Route::post('/Them', [BanController::class, 'Them']);
