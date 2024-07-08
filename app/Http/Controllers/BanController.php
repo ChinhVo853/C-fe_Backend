@@ -76,7 +76,7 @@ class BanController extends Controller
             ], 422);
         }
         $data = $this->BanServices->LamBanTrong($request->ban);
-        $this->BanServices->LamBanTrong($request->dat_mon_id);
+        $this->BanServices->XoaYeuCau($request->dat_mon_id);
         
         return response()->json([
             'message' =>  'Thành công',
