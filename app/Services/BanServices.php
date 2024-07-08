@@ -102,6 +102,13 @@ class BanServices
             ]);
     }
 
+    public function XoaYeuCau(int $id)
+    {
+        DB::table('yeu_cau')
+        ->where('dat_mon_id',$id)
+        ->delete();
+    } 
+
     public function LamBanTrong(int $ban)
     {
         DB::table('ban')
