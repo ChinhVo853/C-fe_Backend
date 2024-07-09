@@ -21,7 +21,6 @@ class SanPhamController extends Controller
             'foodCategory' => 'required',
             'foodPrice' => 'required|array',
             'foodSize' => 'array',
-            'foodStatus' => 'required'
         ], [
             'foodName.required' => 'vui lòng nhập tên',
             'foodName.string' => 'Tên món phải là chữ a-z hoặc 0-9',
@@ -30,7 +29,7 @@ class SanPhamController extends Controller
             'foodPrice.required' => 'vui lòng nhập giá',
             'foodPrice.array' => 'Đây phải là 1 mảng',
             'foodSize.array' => 'Đây phải là 1 mảng',
-            'foodStatus.required' => 'Vui lòng chọn trạng thái',
+
         ]);
 
         if ($validator->fails()) {
@@ -66,7 +65,7 @@ class SanPhamController extends Controller
                     $request->foodCategory,
                     $request->foodPrice[$i],
                     1,
-                    $request->foodStatus
+                    1
                 );
             } else {
                 $timMon = $this->sanPhamServices->TimMon($request->foodName, $request->foodSize[$i], $request->foodCategory);
@@ -83,7 +82,7 @@ class SanPhamController extends Controller
                     $request->foodCategory,
                     $request->foodPrice[$i],
                     $request->foodSize[$i],
-                    $request->foodStatus
+                    1
                 );
             }
         }
@@ -118,7 +117,7 @@ class SanPhamController extends Controller
         }
         $timMon = $this->sanPhamServices->TimMon($request->tenMon, $request->sizeID, $request->loaiID);
 
-        if ($timMon->count() > 0) {
+        if ($timMon->count() > 0 && !$request->hasFile('image')) {
             return response()->json([
                 'status' => 'error',
                 'errors' => "Món ăn đã tồn tại"
