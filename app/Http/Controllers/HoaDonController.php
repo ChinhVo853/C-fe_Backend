@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\HoaDonServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HoaDonController extends Controller
 {
@@ -22,10 +23,14 @@ class HoaDonController extends Controller
             ], 422);
         }
         $datMonID = $this->HoaDonServices->LayIDDatMon($ban);
-
-        $taoHoaDon = $this->HoaDonServices->TimVaTaoHoaDon($datMonID->id, $ban);
-
         $dsChiTietDatMon = $this->HoaDonServices->LayCTDatMon($datMonID->id);
+        if ($dsChiTietDatMon->count() == 0) {
+            return response()->json([
+                'status' => 'error',
+                'errors' =>  'vui lòng thêm món'
+            ], 422);
+        }
+        $taoHoaDon = $this->HoaDonServices->TimVaTaoHoaDon($datMonID->id, $ban);
         $tongTien = $this->HoaDonServices->LayTiongTien($taoHoaDon);
         foreach ($dsChiTietDatMon as $item) {
             $thanhTien = $item->so_luong * $item->gia;
@@ -88,6 +93,29 @@ class HoaDonController extends Controller
         $this->HoaDonServices->ChiTietXacNhan($id);
         return response()->json([
             'message' => 'Thành công',
+        ]);
+    }
+
+    public function TimNgayHoaDon(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ngayDB' => 'required',
+            'ngayKT' => 'required'
+        ], [
+            'ngayDB.required' => 'Vui lòng chọn ngày bắt đầu',
+            'ngayKT.required' => 'Vui lòng chọn ngày kết thúc',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = $this->HoaDonServices->TimNgayHD($request->ngayDB, $request->ngayKT, $request->ban);
+        return response()->json([
+            'message' => 'Thành công',
+            'data' => $data
         ]);
     }
 }

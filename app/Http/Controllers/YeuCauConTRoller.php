@@ -86,6 +86,20 @@ class YeuCauConTRoller extends Controller
             ], 200);
         }
         if ($request->yeuCau == "Thanh toán") {
+            $hoaDon = $this->YeuCauServices->TimKTHoaDon($request->ban, $datMonID);
+            if (!isset($hoaDon)) {
+                return response()->json([
+                    'status' => 'error',
+                    'errors' => "Không thể thanh toán"
+                ], 422);
+            }
+            $chiTietHD = $this->YeuCauServices->LayDSCThoaDon($hoaDon->id);
+            if ($chiTietHD->count() == 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'errors' => "Không thể thanh toán"
+                ], 422);
+            }
             $this->YeuCauServices->DoiThanhToan($request->ban);
         }
         $this->YeuCauServices->Tao($datMonID, $request->noiDung);

@@ -187,5 +187,45 @@ class YeuCauServices
 
         return $data;
     }
+
+    public function LayDSCThoaDon(int $id)
+    {
+        $data = DB::table('chi_tiet_hoa_don as ct')
+            ->join('mon_an as m', 'm.id', 'ct.mon_an_id')
+            ->join('hoa_don as hd', 'hd.id', 'ct.hoa_don_id')
+            ->join('loai as l', 'm.loai_id', 'l.id')
+            ->join('size as s', 'm.size_id', 's.id')
+            ->where('hoa_don_id', $id)
+            ->select([
+                'ct.id as chiTietID',
+                'ct.xac_nhan',
+                'm.id as id',
+                'm.ten as tenMon',
+                'l.ten as tenLoai',
+                's.ten as tenSize',
+                'm.gia',
+                'm.anh',
+                'ct.thanh_tien',
+                'm.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID',
+                'ct.so_luong',
+                'hd.tong_tien',
+                'hd.created_at',
+                'hd.updated_at'
+            ])->get();
+        return $data;
+    }
+    public function TimKTHoaDon(int $id, int $datMon)
+    {
+        $tim = DB::table('hoa_don')
+            ->select('id')
+            ->where('ban_id', $id)
+            ->where('dat_mon_id', $datMon)
+            ->orderBy('id', 'desc')
+
+            ->first();
+        return $tim;
+    }
 }
 /**/

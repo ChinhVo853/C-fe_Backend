@@ -157,4 +157,16 @@ class HoaDonServices
                 'xac_nhan' => 1
             ]);
     }
+    public function TimNgayHD(string $ngayDB, string $ngayKT, int $id)
+    {
+        $data = DB::table('hoa_don')
+            ->where('ban_id', $id)
+            ->whereBetween('created_at', [$ngayDB, $ngayKT])
+            ->select([
+                'id',
+                'tong_tien',
+                'created_at',
+            ])->get();
+        return $data;
+    }
 }

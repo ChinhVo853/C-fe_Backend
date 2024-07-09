@@ -20,12 +20,12 @@ class BanController extends Controller
 
         //  dd($data);
         foreach ($data as $item) {
-            
+
             $tam = 0;
-            $tam2=0;
+            $tam2 = 0;
             $datMon = $this->BanServices->TimDatMon($item->ban_id);
             if (isset($datMon)) {
-                $hoadon=$this->BanServices->TimHoaDon($datMon->id);
+                $hoadon = $this->BanServices->TimHoaDon($datMon->id);
                 if (isset($hoadon)) {
                     foreach ($hoadon as $item2) {
                         if ($item2->xac_nhan == 0) {
@@ -35,7 +35,7 @@ class BanController extends Controller
                     $item->hd = $tam2;
                 }
                 $yeuCAu = $this->BanServices->TimYeuCau($datMon->id);
-                
+
                 if (isset($yeuCAu)) {
                     foreach ($yeuCAu as $item2) {
                         if ($item2->trang_thai == 0) {
@@ -66,7 +66,7 @@ class BanController extends Controller
         $validator = Validator::make($request->all(), [
             'dat_mon_id' => 'required',
         ], [
-            'id.required' => 'Bàn đang trống',
+            'dat_mon_id.required' => 'Bàn đang trống',
         ]);
 
         if ($validator->fails()) {
@@ -77,7 +77,14 @@ class BanController extends Controller
         }
         $data = $this->BanServices->LamBanTrong($request->ban);
         $this->BanServices->XoaYeuCau($request->dat_mon_id);
-        
+        $hd = $this->BanServices->TimHD($request->dat_mon_id);
+        if (!isset($hd)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => 'Bàn chưa có mã'
+            ], 422);
+        }
+        $this->BanServices->xoaCTHD($hd->id);
         return response()->json([
             'message' =>  'Thành công',
             'data' => $data

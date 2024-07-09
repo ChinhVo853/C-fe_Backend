@@ -109,12 +109,11 @@ Route::prefix('Yeu-Cau')->group(function () {
 
 Route::prefix('Hoa-Don')->group(function () {
     Route::get('/Xac-Nhan-Chi-Tiet/{id}', [HoaDonController::class, 'XacNhanChiTiet']);
-
-
     Route::get('/Goi-Mon/{ban}', [HoaDonController::class, 'GoiMon']);
     Route::get('/Danh-Sach-Chi-Tiet/{ban}', [HoaDonController::class, 'DanhSachChiTiet']);
     Route::get('/Danh-Sach-Chi-Tiet-theo-ma/{ban}', [HoaDonController::class, 'ChiTietHoaDonTheoMa']);
     Route::get('/DanhSachHoaDon/{ban}', [HoaDonController::class, 'DanhSachHoaDon']);
+    Route::post('/TimNgay', [HoaDonController::class, 'TimNgayHoaDon']);
 });
 
 Route::post('/San-Pham/Tim', [SanPhamController::class, 'TimMon']);
