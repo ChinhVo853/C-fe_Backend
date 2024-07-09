@@ -54,7 +54,7 @@ class DatMonController extends Controller
             return response()->json([
                 'message' => 'Thất Bại',
                 'errors' => "Mã không đúng"
-            ], 200);
+            ], 422);
         }
         return response()->json([
             'message' => 'Thành công',
