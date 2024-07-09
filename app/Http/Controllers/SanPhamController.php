@@ -50,7 +50,7 @@ class SanPhamController extends Controller
             }
 
 
-            if ($request->sizeDuyNhat === true) {
+            if ($request->sizeDuyNhat == true) {
 
                 $timMon = $this->sanPhamServices->TimMon($request->foodName, 1, $request->foodCategory);
 
