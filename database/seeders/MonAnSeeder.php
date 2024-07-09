@@ -276,47 +276,13 @@ class MonAnSeeder extends Seeder
                 'anh' => 'Pepsi.jpg'
             ]);
 
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'Mì cay bò',
-                'gia' => 35000,
-
-                'loai_id' => 7,
-                'size_id' => 1,
-                'trang_thai' => false,
-                'anh' => 'MCB.jpg'
-            ]);
-
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'Mì cay hải sản',
-                'gia' => 35000,
-
-                'loai_id' => 7,
-                'size_id' => 1,
-                'trang_thai' => false,
-                'anh' => 'MCHS.jpg'
-
-            ]);
-
-        DB::table('mon_an')
-            ->insert([
-                'ten' => 'Mì cay thập cẩm',
-                'gia' => 45000,
-
-                'loai_id' => 7,
-                'size_id' => 1,
-                'trang_thai' => false,
-                'anh' => 'MCTC.jpg'
-
-            ]);
 
         DB::table('mon_an')
             ->insert([
                 'ten' => 'Bánh tráng trộn',
                 'gia' => 25000,
 
-                'loai_id' => 8,
+                'loai_id' => 7,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'BTT.jpg'
@@ -327,7 +293,7 @@ class MonAnSeeder extends Seeder
                 'ten' => 'Bánh tráng cuốn',
                 'gia' => 25000,
 
-                'loai_id' => 8,
+                'loai_id' => 7,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'BTC.jpg'
@@ -338,7 +304,7 @@ class MonAnSeeder extends Seeder
                 'ten' => 'Bánh tráng chấm',
                 'gia' => 25000,
 
-                'loai_id' => 8,
+                'loai_id' => 7,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'BTC.jpg'
@@ -350,7 +316,7 @@ class MonAnSeeder extends Seeder
                 'ten' => 'Gà rán sốt cay',
                 'gia' => 35000,
 
-                'loai_id' => 10,
+                'loai_id' => 9,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'grsc.jpg'
@@ -361,7 +327,7 @@ class MonAnSeeder extends Seeder
                 'ten' => 'Gà rán sốt ngọt',
                 'gia' => 35000,
 
-                'loai_id' => 10,
+                'loai_id' => 9,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'grsn.jpg'
@@ -372,7 +338,7 @@ class MonAnSeeder extends Seeder
                 'ten' => 'Gà rán nguyên vị',
                 'gia' => 35000,
 
-                'loai_id' => 10,
+                'loai_id' => 9,
                 'size_id' => 1,
                 'trang_thai' => false,
                 'anh' => 'grnv.jpg'
@@ -381,46 +347,46 @@ class MonAnSeeder extends Seeder
 
         DB::table('mon_an')
             ->insert([
-                'ten' => 'Thịt bò',
+                'ten' => 'Bimbim Lays Vị muối',
                 'gia' => 10000,
 
-                'loai_id' => 11,
+                'loai_id' => 10,
                 'size_id' => 1,
                 'trang_thai' => false,
-                'anh' => 'bt.jpg'
+                'anh' => 'BimBim1.png'
             ]);
 
         DB::table('mon_an')
             ->insert([
-                'ten' => 'Tôm',
+                'ten' => 'Snack Oshi phô mát ',
                 'gia' => 10000,
 
-                'loai_id' => 11,
+                'loai_id' => 10,
                 'size_id' => 1,
                 'trang_thai' => false,
-                'anh' => 'tt.jpg'
+                'anh' => 'BimBim2.png'
             ]);
 
         DB::table('mon_an')
             ->insert([
-                'ten' => 'Cà tím',
+                'ten' => 'Snack Oshi tôm cay ',
                 'gia' => 10000,
 
-                'loai_id' => 11,
+                'loai_id' => 10,
                 'size_id' => 1,
                 'trang_thai' => false,
-                'anh' => 'ct.jpg'
+                'anh' => 'bb3.png'
             ]);
 
         DB::table('mon_an')
             ->insert([
-                'ten' => 'Mì',
+                'ten' => 'Oshi Snack Inđo',
                 'gia' => 7000,
 
-                'loai_id' => 11,
+                'loai_id' => 10,
                 'size_id' => 1,
                 'trang_thai' => false,
-                'anh' => 'my.jpg'
+                'anh' => 'bb4.png'
             ]);
     }
 }

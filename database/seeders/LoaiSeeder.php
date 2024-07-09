@@ -53,11 +53,6 @@ class LoaiSeeder extends Seeder
                 'size_duy_nhat' => true
             ]);
 
-        DB::table('loai')
-            ->insert([
-                'ten' => 'Mì cay',
-                'size_duy_nhat' => true
-            ]);
 
         DB::table('loai')
             ->insert([
@@ -79,7 +74,7 @@ class LoaiSeeder extends Seeder
 
         DB::table('loai')
             ->insert([
-                'ten' => 'Món ăn thêm',
+                'ten' => 'Bánh đóng gói sẵn',
                 'size_duy_nhat' => true
             ]);
     }
