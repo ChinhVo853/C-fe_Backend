@@ -28,7 +28,7 @@ class BanServices
                 'tt.ten as ten_trang_thai',
                 'b.trang_thai_id'
             )
-            ->orderBy('b.id', 'desc')
+            ->orderBy('b.id', 'asc')
             ->get();
 
         return $data;

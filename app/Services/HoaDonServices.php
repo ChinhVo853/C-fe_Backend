@@ -139,13 +139,16 @@ class HoaDonServices
 
     public function LayDSHoaDon(int $id)
     {
-        $data = DB::table('hoa_don')
-            ->where('ban_id', $id)
+        $data = DB::table('hoa_don as hd')
+            ->join('ban as b', 'b.id', '=', 'hd.ban_id')
+            ->where('hd.ban_id', $id)
             ->select([
-                'id',
-                'tong_tien',
-                'created_at',
-            ])->get();
+                'hd.id',
+                'b.ten_ban',
+                'hd.tong_tien',
+                'hd.created_at',
+            ])
+            ->orderByDesc('hd.id')->get();
         return $data;
     }
 

@@ -30,5 +30,20 @@ class BanSeeder extends Seeder
                 'ten_ban' => 'Bàn 3',
                 'trang_thai_id' => 1
             ]);
+        DB::table('ban')
+            ->insert([
+                'ten_ban' => 'Bàn 4',
+                'trang_thai_id' => 1
+            ]);
+        DB::table('ban')
+            ->insert([
+                'ten_ban' => 'Bàn 5',
+                'trang_thai_id' => 1
+            ]);
+        DB::table('ban')
+            ->insert([
+                'ten_ban' => 'Bàn 6',
+                'trang_thai_id' => 1
+            ]);
     }
 }

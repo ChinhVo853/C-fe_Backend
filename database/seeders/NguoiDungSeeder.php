@@ -24,5 +24,13 @@ class NguoiDungSeeder extends Seeder
                 'so_dien_thoai' => '0987654321',
                 'quyen_id' => 1
             ]);
+        DB::table('nguoi_dung')
+            ->insert([
+                'ho_ten' => 'Lê Gia Bảo	',
+                'email' => 'legiabao0910303@gmail.com',
+                'password' => Hash::make('123456789'),
+                'so_dien_thoai' => '0123456789',
+                'quyen_id' => 2
+            ]);
     }
 }

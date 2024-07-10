@@ -108,6 +108,14 @@ class BanController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        $datMon = $this->BanServices->TimDatMon($request->id);
+        if (!empty($datMon)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Không thể xoá"
+            ], 422);
+        }
+
 
         $this->BanServices->XoaBan($request->id);
         return response()->json([

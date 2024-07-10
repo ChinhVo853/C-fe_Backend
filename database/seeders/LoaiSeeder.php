@@ -37,7 +37,7 @@ class LoaiSeeder extends Seeder
 
         DB::table('loai')
             ->insert([
-                'ten' => 'Sinh tó',
+                'ten' => 'Sinh tố',
                 'size_duy_nhat' => false
             ]);
 
