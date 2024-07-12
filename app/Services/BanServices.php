@@ -114,6 +114,21 @@ class BanServices
             ->where('hoa_don_id', $id)
             ->delete();
     }
+    public function XoaHoaDon(int $id)
+    {
+        DB::table('hoa_don')
+            ->where('id', $id)
+            ->delete();
+    }
+
+    public function TimTrangThaiBan(int $ban)
+    {
+        $ban = DB::table('ban')
+            ->where('id', $ban)
+            ->select('trang_thai_id')
+            ->first();
+        return $ban;
+    }
 
     public function LamBanTrong(int $ban)
     {

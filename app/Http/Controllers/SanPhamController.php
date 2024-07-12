@@ -49,8 +49,7 @@ class SanPhamController extends Controller
             }
 
 
-            if ($request->sizeDuyNhat == true) {
-
+            if ($request->sizeDuyNhat == "true") {
                 $timMon = $this->sanPhamServices->TimMon($request->foodName, 1, $request->foodCategory);
 
                 if ($timMon->count() > 0) {
@@ -117,6 +116,9 @@ class SanPhamController extends Controller
         }
         $timMon = $this->sanPhamServices->TimMon($request->tenMon, $request->sizeID, $request->loaiID);
 
+        $timMon = $timMon->reject(function ($item) use ($request) {
+            return $item->id == $request->MonID;
+        });
         if ($timMon->count() > 0 && !$request->hasFile('image')) {
             return response()->json([
                 'status' => 'error',

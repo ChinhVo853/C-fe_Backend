@@ -75,16 +75,38 @@ class BanController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-        $data = $this->BanServices->LamBanTrong($request->ban);
-        $this->BanServices->XoaYeuCau($request->dat_mon_id);
+        $ban = $this->BanServices->TimTrangThaiBan($request->ban);
+
         $hd = $this->BanServices->TimHD($request->dat_mon_id);
+
+        if ($ban->trang_thai_id == 1) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => "Bàn đang trống"
+            ], 422);
+        }
+
         if (!isset($hd)) {
             return response()->json([
                 'status' => 'error',
                 'errors' => 'Bàn chưa có mã'
             ], 422);
         }
-        $this->BanServices->xoaCTHD($hd->id);
+
+        if (!isset($ban)) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => 'không tìm thấy bàn'
+            ], 422);
+        }
+
+        if ($ban->trang_thai_id == 2 || $ban->trang_thai_id == 3) {
+            $this->BanServices->xoaCTHD($hd->id);
+            $this->BanServices->XoaHoaDon($hd->id);
+        }
+        $this->BanServices->XoaYeuCau($request->dat_mon_id);
+
+        $data = $this->BanServices->LamBanTrong($request->ban);
         return response()->json([
             'message' =>  'Thành công',
             'data' => $data

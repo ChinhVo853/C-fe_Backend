@@ -91,6 +91,7 @@ class SanPhamServices
                 'l.id as LoaiID'
             ])
             ->orderBy('l.id', 'asc')
+            ->orderBy('m.id', 'asc')
             ->get();
         return $data;
     }
