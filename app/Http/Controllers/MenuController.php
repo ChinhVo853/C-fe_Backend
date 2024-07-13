@@ -51,11 +51,12 @@ class MenuController extends Controller
 
         $datMon = $this->MenuServices->TimDatMon($id);
         $chiTietDatMon = $this->MenuServices->DSChiTietDatMon($datMon->id);
-
+        $ban = $this->MenuServices->KiemTraBan($id);
         return response()->json([
             'message' => 'thanh công',
             'data' => $data,
-            'dat_mon' => $chiTietDatMon
+            'dat_mon' => $chiTietDatMon,
+            'ban' => $ban
         ]);
     }
 

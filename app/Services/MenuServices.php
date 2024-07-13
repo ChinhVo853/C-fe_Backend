@@ -23,6 +23,7 @@ class MenuServices
             )
             ->where('trang_thai', 0)
             ->orderBy('l.id', 'asc')
+            ->orderBy('m.id', 'asc')
             ->get();
         return $data;
     }
@@ -116,6 +117,14 @@ class MenuServices
                 'm.anh'
             )
             ->get();
+        return $data;
+    }
+    public function KiemTraBan(int $ban)
+    {
+        $data = DB::table('ban')
+            ->where('id', $ban)
+            ->select('trang_thai_id')
+            ->first();
         return $data;
     }
 

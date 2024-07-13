@@ -29,6 +29,7 @@ class YeuCauServices
             ->select(
                 'yc.id as yeu_cau_id',
                 'b.ten_ban',
+                'b.id as ban_id',
                 'yc.noi_dung',
                 'yc.trang_thai',
                 'yc.created_at as thoi_gian'
