@@ -86,11 +86,11 @@ class BanController extends Controller
             ], 422);
         }
 
-        if (!isset($hd)) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => 'Bàn chưa có mã'
-            ], 422);
+        if (isset($hd)) {
+            if ($ban->trang_thai_id == 2 || $ban->trang_thai_id == 3) {
+                $this->BanServices->xoaCTHD($hd->id);
+                $this->BanServices->XoaHoaDon($hd->id);
+            }
         }
 
         if (!isset($ban)) {
@@ -100,10 +100,7 @@ class BanController extends Controller
             ], 422);
         }
 
-        if ($ban->trang_thai_id == 2 || $ban->trang_thai_id == 3) {
-            $this->BanServices->xoaCTHD($hd->id);
-            $this->BanServices->XoaHoaDon($hd->id);
-        }
+
         $this->BanServices->XoaYeuCau($request->dat_mon_id);
 
         $data = $this->BanServices->LamBanTrong($request->ban);
