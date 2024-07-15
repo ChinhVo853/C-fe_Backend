@@ -15,6 +15,56 @@ class HoaDonServices
             ->first();
         return $data;
     }
+    public function LayDSCTDatMon(int $id)
+    {
+        $data = DB::table('chi_tiet_dat_mon as ct')
+            ->join('mon_an as m', 'm.id', 'ct.mon_an_id')
+            ->join('loai as l', 'm.loai_id', 'l.id')
+            ->join('size as s', 'm.size_id', 's.id')
+            ->where('xac_nhan_dat_mon', 1)
+            ->where('dat_mon_id', $id)
+            ->select([
+                'ct.id as chiTietID',
+                'm.id as id',
+                'm.ten as tenMon',
+                'l.ten as tenLoai',
+                's.ten as tenSize',
+                'm.gia',
+                'm.anh',
+                'm.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID',
+                'ct.so_luong',
+                'ct.xac_nhan_dat_mon',
+                'ct.xac_nhan_thanh_toan'
+            ])->get();
+        return $data;
+    }
+    public function LayTatCaDSCTDatMon(int $id)
+    {
+        $data = DB::table('chi_tiet_dat_mon as ct')
+            ->join('mon_an as m', 'm.id', 'ct.mon_an_id')
+            ->join('loai as l', 'm.loai_id', 'l.id')
+            ->join('size as s', 'm.size_id', 's.id')
+            ->where('dat_mon_id', $id)
+            ->where('xac_nhan_dat_mon', 1)
+            ->select([
+                'ct.id as chiTietID',
+                'm.id as id',
+                'm.ten as tenMon',
+                'l.ten as tenLoai',
+                's.ten as tenSize',
+                'm.gia',
+                'm.anh',
+                'm.trang_thai',
+                's.id as sizeID',
+                'l.id as LoaiID',
+                'ct.so_luong',
+                'ct.xac_nhan_dat_mon',
+                'ct.xac_nhan_thanh_toan'
+            ])->get();
+        return $data;
+    }
     public function LayDSCThoaDon(int $id)
     {
         $data = DB::table('chi_tiet_hoa_don as ct')
@@ -25,7 +75,6 @@ class HoaDonServices
             ->where('hoa_don_id', $id)
             ->select([
                 'ct.id as chiTietID',
-                'ct.xac_nhan',
                 'm.id as id',
                 'm.ten as tenMon',
                 'l.ten as tenLoai',
@@ -154,10 +203,10 @@ class HoaDonServices
 
     public function ChiTietXacNhan(int $id)
     {
-        DB::table('chi_tiet_hoa_don')
+        DB::table('chi_tiet_dat_mon')
             ->where('id', $id)
             ->update([
-                'xac_nhan' => 1
+                'xac_nhan_thanh_toan' => 1
             ]);
     }
     public function TimNgayHD(string $ngayDB, string $ngayKT, int $id)
@@ -171,5 +220,15 @@ class HoaDonServices
                 'created_at',
             ])->get();
         return $data;
+    }
+
+
+    public function XacNhanDatMon(int $id)
+    {
+        DB::table('chi_tiet_dat_mon')
+            ->where('dat_mon_id', $id)
+            ->update([
+                'xac_nhan_dat_mon' => 1
+            ]);
     }
 }

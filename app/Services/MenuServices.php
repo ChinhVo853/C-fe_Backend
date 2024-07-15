@@ -89,7 +89,9 @@ class MenuServices
             ->insert([
                 'dat_mon_id' => $datMonID,
                 'mon_an_id'  => $monID,
-                'so_luong' => $soLuong
+                'so_luong' => $soLuong,
+                'xac_nhan_dat_mon' => 0,
+                'xac_nhan_thanh_toan' => 0
             ]);
     }
 
@@ -109,6 +111,7 @@ class MenuServices
             ->join('mon_an as m', 'm.id', '=', 'ctdm.mon_an_id')
             ->join('size as s', 's.id', '=', 'm.size_id')
             ->where('ctdm.dat_mon_id', '=', $id)
+            ->where('ctdm.xac_nhan_dat_mon', '=', 0)
             ->select(
                 'm.ten as ten_mon',
                 'm.gia',
@@ -133,6 +136,7 @@ class MenuServices
         $data = DB::table('chi_tiet_dat_mon')
             ->where('mon_an_id', $monID)
             ->where('dat_mon_id', $datMonID)
+            ->where('xac_nhan_dat_mon', 0)
             ->select('id')
             ->first();
         return $data;

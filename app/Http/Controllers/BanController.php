@@ -25,10 +25,10 @@ class BanController extends Controller
             $tam2 = 0;
             $datMon = $this->BanServices->TimDatMon($item->ban_id);
             if (isset($datMon)) {
-                $hoadon = $this->BanServices->TimHoaDon($datMon->id);
+                $hoadon = $this->BanServices->TimCTDatMon($datMon->id);
                 if (isset($hoadon)) {
                     foreach ($hoadon as $item2) {
-                        if ($item2->xac_nhan == 0) {
+                        if ($item2->xac_nhan_dat_mon == 1) {
                             $tam2++;
                         }
                     }

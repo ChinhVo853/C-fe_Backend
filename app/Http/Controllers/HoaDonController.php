@@ -30,15 +30,7 @@ class HoaDonController extends Controller
                 'errors' =>  'vui lòng thêm món'
             ], 422);
         }
-        $taoHoaDon = $this->HoaDonServices->TimVaTaoHoaDon($datMonID->id, $ban);
-        $tongTien = $this->HoaDonServices->LayTiongTien($taoHoaDon);
-        foreach ($dsChiTietDatMon as $item) {
-            $thanhTien = $item->so_luong * $item->gia;
-            $tongTien += $thanhTien;
-            $this->HoaDonServices->LuuChiTietHoaDon($taoHoaDon, $item->mon_an_id, $item->so_luong, $thanhTien);
-        }
-        $this->HoaDonServices->capNhatTongTien($taoHoaDon, $tongTien);
-        $this->HoaDonServices->XoaChiTietDatMon($datMonID->id);
+        $this->HoaDonServices->XacNhanDatMon($datMonID->id);
         return response()->json([
             'message' => 'Thành công',
         ]);
@@ -54,15 +46,8 @@ class HoaDonController extends Controller
                 'data' => []
             ]);
         }
-        $hoaDon = $this->HoaDonServices->TimHoaDon($ban, $datMonID->id);
 
-        if (!isset($hoaDon)) {
-            return response()->json([
-                'message' => 'Thành công',
-                'data' => []
-            ]);
-        }
-        $data = $this->HoaDonServices->LayDSCThoaDon($hoaDon->id);
+        $data = $this->HoaDonServices->LayTatCaDSCTDatMon($datMonID->id);
         return response()->json([
             'message' => 'Thành công',
             'data' => $data

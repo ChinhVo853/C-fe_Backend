@@ -179,13 +179,13 @@ class BanServices
             ->get();
         return $data;
     }
-    public function TimHoaDon(int $datMon)
+    public function TimCTDatMon(int $datMon)
     {
-        $data = DB::table('hoa_don as hd')
-
+        $data = DB::table('chi_tiet_dat_mon')
             ->where('dat_mon_id', $datMon)
-            ->join('chi_tiet_hoa_don as cthd', 'cthd.hoa_don_id', 'hd.id')
-            ->select('xac_nhan')
+            ->where('xac_nhan_dat_mon', 1)
+            ->where('xac_nhan_thanh_toan', 0)
+            ->select('xac_nhan_dat_mon')
             ->get();
         return $data;
     }

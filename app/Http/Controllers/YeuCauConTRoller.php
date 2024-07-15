@@ -86,20 +86,6 @@ class YeuCauConTRoller extends Controller
             ], 200);
         }
         if ($request->yeuCau == "Thanh toán") {
-            $hoaDon = $this->YeuCauServices->TimKTHoaDon($request->ban, $datMonID);
-            if (!isset($hoaDon)) {
-                return response()->json([
-                    'status' => 'error',
-                    'errors' => "Không thể thanh toán"
-                ], 422);
-            }
-            $chiTietHD = $this->YeuCauServices->LayDSCThoaDon($hoaDon->id);
-            if ($chiTietHD->count() == 0) {
-                return response()->json([
-                    'status' => 'error',
-                    'errors' => "Không thể thanh toán"
-                ], 422);
-            }
             $this->YeuCauServices->DoiThanhToan($request->ban);
         }
         $this->YeuCauServices->Tao($datMonID, $request->noiDung);
@@ -126,11 +112,16 @@ class YeuCauConTRoller extends Controller
             $this->YeuCauServices->DonBan($request->ban);
 
             $datMonID = $this->YeuCauServices->TimDatMon($request->ban);
-            $timHoaDon = $this->YeuCauServices->TimHoaDon($request->ban, $datMonID);
-
-            $this->YeuCauServices->XoaChiTiet($timHoaDon);
-
-            $data = $this->YeuCauServices->TimCTHoaDon($timHoaDon);
+            $tongTien = 0;
+            $timCTDatMon = $this->YeuCauServices->TimCTDM($datMonID);
+            foreach ($timCTDatMon as $item) {
+                $tongTien += $item->gia * $item->so_luong;
+            }
+            $taoHoaDon = $this->YeuCauServices->TaoHoaDon($datMonID, $request->ban, $tongTien);
+            foreach ($timCTDatMon as $item) {
+                $tt = $item->so_luong * $item->gia;
+                $this->YeuCauServices->TaoCTHoaDon($taoHoaDon, $item->mon_an_id, $item->so_luong, $tt);
+            }
         }
 
         $this->YeuCauServices->XacNhan($request->id);

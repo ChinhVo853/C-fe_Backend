@@ -228,5 +228,42 @@ class YeuCauServices
             ->first();
         return $tim;
     }
+
+    public function TaoHoaDon(int $id, int $ban, float $tongTien)
+    {
+
+        $data = DB::table('hoa_don')
+            ->insertGetId([
+                'dat_mon_id' => $id,
+                'tong_tien' => $tongTien,
+                'ban_id' => $ban
+            ]);
+        return $data;
+    }
+
+    public function TaoCTHoaDon(int $hoaDonID, int $monAnID, int $soLuong, float $thanhTien)
+    {
+        DB::table('chi_tiet_hoa_don')
+            ->insert([
+                'hoa_don_id' => $hoaDonID,
+                'mon_an_id' => $monAnID,
+                'so_luong' => $soLuong,
+                'thanh_tien' => $thanhTien
+            ]);
+    }
+
+    public function TimCTDM(int $id)
+    {
+        $data = DB::table('chi_tiet_dat_mon as ctdm')
+            ->join('mon_an as m', 'm.id', '=', 'ctdm.mon_an_id')
+            ->where('dat_mon_id', $id)
+            ->select(
+                'ctdm.mon_an_id',
+                'ctdm.so_luong',
+                'm.gia'
+            )
+            ->get();
+        return $data;
+    }
 }
 /**/
